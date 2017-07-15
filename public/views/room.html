@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<div ng-controller="RoomController">
+  <h2>Room {{roomId}} details</h2>
+
+  ID: <input type="number" ng-model="roomId"><br>
+  <button type="button" name="button" ng-click="search(id)" >Search</button>
+
+  <ul>
+    <li><b>Name:</b> {{item.name}}</li>
+    <li><b>Price:</b> {{item.price}}</li>
+    <li><b>Count:</b> {{item.count}}</li>
+    <li><b>ID:</b> {{item.id}}</li>
+  </ul>
+
+  <p><em>Status message: {{message}}</em></p>
+
+</div>

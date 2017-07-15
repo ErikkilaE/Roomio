@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<div ng-controller="RoomListController">
+  <h2>Room list</h2>
+
+  <button type="button" ng-click="getItems()">Load list</button>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Count</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat='item in items'>
+        <td>{{item.id}}</td>
+        <td>{{item.name}}</td>
+        <td>{{item.price}}</td>
+        <td>{{item.count}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><em>Status message: {{message}}</em></p>
+
+</div>

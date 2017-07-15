@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<div ng-controller="RoomAdminController">
+  <p>Edit room {{roomId}} details</p>
+
+  <form ng-submit="updateRoom()">
+    <label for="name">Room name</label>:
+    <input type="text" name="name" id="name" value="" ng-model="name" required><br>
+    <label for="form_capacity">Capacity</label>:
+    <input type="number" min=1 name="capacity" id="price" value="" required ng-model="capacity"><br>
+
+    <input type="submit" name="button" value="Add room">
+  </form>
+
+  <p><em>Status message: {{message}}</em></p>
+
+</div>
