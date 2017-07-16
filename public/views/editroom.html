@@ -2,13 +2,24 @@
 <div ng-controller="RoomAdminController">
   <p>Edit room {{roomId}} details</p>
 
-  <form ng-submit="updateRoom()">
+  <form ng-submit="save()">
     <label for="name">Room name</label>:
-    <input type="text" name="name" id="name" value="" ng-model="name" required><br>
-    <label for="form_capacity">Capacity</label>:
-    <input type="number" min=1 name="capacity" id="price" value="" required ng-model="capacity"><br>
+    <input type="text" name="name" id="name" value="" ng-model="room.name"><br>
+    <label for="capacity">Capacity</label>:
+    <input type="number" min=1 name="capacity" id="capacity" value="" ng-model="room.capacity"><br>
+    <label for="building">Building</label>:
+    <input type="text" name="building" id="building" value="" id="building" ng-model="room.building">
+    <label for="site">Site</label>:
+    <input type="text" name="site" id="site" value="" id="site" ng-model="room.site"><br>
+    <label for="floor">Floor</label>:
+    <input type="number" min=1 name="floor" id="floor" value="" ng-model="room.floor"><br>
+    <label for="type">Room type</label>:
+    <select name="type" id="type" ng-model="room.type">
+      <option value="MEETING">Meeting room</option>
+      <option value="CLASS">Classroom</option>
+    </select><br>
 
-    <input type="submit" name="button" value="Add room">
+    <input type="submit" name="button" value="Update room">
   </form>
 
   <p><em>Status message: {{message}}</em></p>

@@ -1,12 +1,23 @@
 <!DOCTYPE html>
-<div ng-controller="RoomAdminController">
+<div ng-controller="AddRoomController">
   <p>Add new room</p>
 
   <form ng-submit="addRoom()">
     <label for="name">Room name</label>:
     <input type="text" name="name" id="name" value="" ng-model="name"><br>
-    <label for="form_capacity">Capacity</label>:
-    <input type="number" min=1 name="capacity" id="price" value="" ng-model="capacity"><br>
+    <label for="capacity">Capacity</label>:
+    <input type="number" min=1 name="capacity" id="capacity" value="" ng-model="capacity"><br>
+    <label for="building">Building</label>:
+    <input type="text" name="building" id="building" value="" id="building" ng-model="building">
+    <label for="site">Site</label>:
+    <input type="text" name="site" id="site" value="" id="site" ng-model="site"><br>
+    <label for="floor">Floor</label>:
+    <input type="number" min=1 name="floor" id="floor" value="" ng-model="floor"><br>
+    <label for="type">Room type</label>:
+    <select name="type" id="type" ng-model="type">
+      <option value="MEETING">Meeting room</option>
+      <option value="CLASS">Classroom</option>
+    </select><br>
 
     <input type="submit" name="button" value="Add room">
   </form>

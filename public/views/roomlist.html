@@ -9,16 +9,24 @@
       <tr>
         <th>ID</th>
         <th>Name</th>
-        <th>Price</th>
-        <th>Count</th>
+        <th>Capacity</th>
+        <th>Building</th>
+        <th>Floor</th>
+        <th>Site</th>
+        <th>Type</th>
+        <th>Features</th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat='item in items'>
-        <td>{{item.id}}</td>
-        <td>{{item.name}}</td>
-        <td>{{item.price}}</td>
-        <td>{{item.count}}</td>
+      <tr ng-repeat='r in rooms'>
+        <td>{{r.id}}</td>
+        <td><a href="#/room/{{r.id}}">{{r.name}}</a></td>
+        <td>{{r.capacity}}</td>
+        <td>{{r.building}}</td>
+        <td>{{r.floor}}</td>
+        <td>{{r.site}}</td>
+        <td>{{r.type}}</td>
+        <td>{{r.features}}</td>
       </tr>
     </tbody>
   </table>

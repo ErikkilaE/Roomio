@@ -2,15 +2,20 @@
 <div ng-controller="RoomController">
   <h2>Room {{roomId}} details</h2>
 
-  ID: <input type="number" ng-model="roomId"><br>
-  <button type="button" name="button" ng-click="search(id)" >Search</button>
-
   <ul>
-    <li><b>Name:</b> {{item.name}}</li>
-    <li><b>Price:</b> {{item.price}}</li>
-    <li><b>Count:</b> {{item.count}}</li>
-    <li><b>ID:</b> {{item.id}}</li>
+    <li><b>Name:</b> {{room.name}}</li>
+    <li><b>Price:</b> {{room.price}}</li>
+    <li><b>Capacity:</b> {{room.capacity}}</li>
+    <li><b>Floor:</b> {{room.floor}}</li>
+    <li><b>Building:</b> {{room.building}}</li>
+    <li><b>Site:</b> {{room.site}}</li>
+    <li><b>Type:</b> {{room.type}}</li>
+    <li><b>Features:</b> {{room.features}}</li>
+
+    <li><b>ID:</b> {{room.id}}</li>
   </ul>
+
+  <p><a href="#/editroom/{{room.id}}">Edit room</a></p>
 
   <p><em>Status message: {{message}}</em></p>
 

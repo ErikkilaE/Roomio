@@ -17,7 +17,7 @@ app.config(['$routeProvider',
       }).
       when('/addroom', {
         templateUrl: 'views/addroom.html',
-        controller:  'RoomAdminController'
+        controller:  'AddRoomController'
       }).
       when('/editroom/:roomId', {
         templateUrl: 'views/editroom.html',
