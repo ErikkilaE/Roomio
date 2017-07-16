@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app="RoomioApp">
+  <head>
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-resource.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-route.min.js"></script>
+    <script src="scripts/main.js"></script>
+		<script src="scripts/controllers/controllers.js"></script>
+		<script src="scripts/factories/factories.js"></script>
+    <title ng-bind="pageTitle || 'Room.io'">room.io</title>
+  </head>
+  <body>
+    <h1>Room.io</h1>
+    <p>Hello World.! </p>
+    <a href="#/rooms">List of rooms</a> /
+    <a href="#/room">Show a room and its reservations</a> /
+    <a href="#/reservation">Show details of a reservation</a> /
+    <a href="#/addroom">Add a new room</a> /
+    <a href="#/editroom">Edit properties of a room</a>
+    <hr>
+    <div ng-view>
+
+    </div>
+
+  </body>
+</html>

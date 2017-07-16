@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<div ng-controller="RoomListController">
+  <h2>Room list</h2>
+
+  <button type="button" ng-click="getItems()">Load list</button>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Capacity</th>
+        <th>Building</th>
+        <th>Floor</th>
+        <th>Site</th>
+        <th>Type</th>
+        <th>Features</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat='r in rooms'>
+        <td>{{r.id}}</td>
+        <td><a href="#/room/{{r.id}}">{{r.name}}</a></td>
+        <td>{{r.capacity}}</td>
+        <td>{{r.building}}</td>
+        <td>{{r.floor}}</td>
+        <td>{{r.site}}</td>
+        <td>{{r.type}}</td>
+        <td>{{r.features}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><em>Status message: {{message}}</em></p>
+
+</div>
