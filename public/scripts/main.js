@@ -23,9 +23,13 @@ app.config(['$routeProvider',
         templateUrl: 'views/editroom.html',
         controller:  'RoomAdminController'
       }).
-      when('/reservation' , {
+      when('/reservation/:reservationId' , {
         templateUrl: 'views/reservation.html',
         controller: 'ReservationController'
+      }).
+      when('/reservations' , {
+        templateUrl: 'views/reservationlist.html',
+        controller: 'ReservationListController'
       }).
       otherwise({
         redirectTo: '/'

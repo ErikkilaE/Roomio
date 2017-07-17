@@ -5,7 +5,6 @@ app.controller("RoomController", function($scope, $routeParams,$rootScope, Room)
 
   $scope.roomId = Number($routeParams.roomId);
 
-
   $scope.getRoomById = function (id) {
     $scope.room = new Room();
     $scope.room.id = id;
@@ -56,11 +55,35 @@ app.controller("RoomListController", function($scope, $rootScope, Room) {
 
 });
 
-app.controller("ReservationController", function($scope,$rootScope,Reservation) {
+app.controller("ReservationController", function($scope,$rootScope, $routeParams,Reservation) {
   $scope.message = ''; // status message shows whether submission succeeded
+
+  $scope.reservationId = Number($routeParams.reservationId);
 
   // change window title (see <title ng-bind...> in index.html)
   $rootScope.pageTitle = 'Room.io - ReservationController';
+
+  $scope.getReservationById = function (id) {
+    $scope.reservation = new Reservation();
+    $scope.reservation.id = id;
+    console.log("searching for reservation with ID " + id)
+    $scope.reservation.$get().then(
+      function() { $scope.message = "Reservation room";},
+      function(error) { $scope.message = "Query error: " + error.status + " " + error.statusText;},
+    );
+  };
+
+  $scope.getReservationById($scope.reservationId);
+
+
+});
+
+app.controller("ReservationListController", function($scope,$rootScope,Reservation) {
+  $scope.message = ''; // status message shows whether submission succeeded
+
+  $scope.reservations = Reservation.query();
+  // change window title (see <title ng-bind...> in index.html)
+  $rootScope.pageTitle = 'Room.io - ReservationListController';
 
   $scope.getItems = function() {
     console.log("Getting list of reservations");
@@ -73,7 +96,6 @@ app.controller("ReservationController", function($scope,$rootScope,Reservation) 
   //$scope.getItems();
 
 });
-
 app.controller("AddRoomController", function($scope, $routeParams, $rootScope, Room) {
   $scope.message = ''; // status message shows whether submission succeeded
 
