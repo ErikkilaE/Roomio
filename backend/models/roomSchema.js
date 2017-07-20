@@ -2,13 +2,27 @@ var mongoose = require( "mongoose" );
 
 var Schema = mongoose.Schema;
 
-module.exports = mongoose.model("RoomItem", new Schema({
-    Name: String,
-    RoomId: Number,
-    Capacity: Number,
-    Floor: Number,
-    Building: String,
-    Site: String,
-    Type: RoomType,
-    Features: Feature[]
+module.exports = mongoose.model("Room", new Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  roomId: {
+    type: Number,
+    unique: true,
+    index: true
+  },
+  description: String,
+  capacity: {
+    type: Number,
+    min: 1
+  },
+  floor: Number,
+  building: String,
+  site: String,
+  type: { // Room type
+    type: String,
+    enum: ["MEETING", "CLASSROOM" ]
+  },
+  features: [String]
 }));
