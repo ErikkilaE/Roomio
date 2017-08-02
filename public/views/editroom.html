@@ -2,7 +2,7 @@
 <div ng-controller="RoomAdminController">
   <p>Edit room {{roomId}} details</p>
 
-  <form ng-submit="save()">
+  <form ng-submit="update()">
     <label for="name">Room name</label>:
     <input type="text" name="name" id="name" value="" ng-model="room.name"><br>
     <label for="capacity">Capacity</label>:

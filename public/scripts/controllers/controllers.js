@@ -149,4 +149,14 @@ app.controller("RoomAdminController", function($scope, $routeParams, $rootScope,
       function(error) { $scope.message = "Submission error " + error.status + " " + error.statusText;},
     );
   }
+  $scope.update = function() {
+    $scope.message = 'Submitting item';
+    console.log("RoomAdminController submit");
+
+    $scope.room.$update().then(
+      function() { $scope.message = "Updated successfully";},
+      function(error) { $scope.message = "Submission error " + error.status + " " + error.statusText;},
+    );
+  }
+
 });
