@@ -162,6 +162,7 @@ app.post("/api/rooms", function(req,res) {
 app.put("/api/rooms/:id", function(req,res) {
   var id = req.params.id;
   console.log("Update info of room having id: " + id);
+  console.log(" updated info: " + req.body)
   var updatedRoom = req.body;
 
   //var room = getRoomById(id);
@@ -178,7 +179,9 @@ app.put("/api/rooms/:id", function(req,res) {
       room.capacity = req.body.capacity;
       room.floor = req.body.floor;
       room.building = req.body.building;
-      room.site = req.body.site;room.save(function(err,savedroom,count) {
+      room.site = req.body.site;
+      room.type = req.body.type;
+      room.save(function(err,savedroom,count) {
         if (err) {
           console.log("Cannot save data: " + err);
           res.status(500);
