@@ -5,7 +5,8 @@
   "description": "Reservation system for meeting rooms etc.",
   "homepage": "https://github.com/ErikkilaE/Roomio",
   "bugs": {
-    "url": "https://github.com/ErikkilaE/Roomio/issues"},
+    "url": "https://github.com/ErikkilaE/Roomio/issues"
+  },
   "scripts": {
     "start": "node ./bin/www"
   },
@@ -14,8 +15,9 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
     "express": "^4.15.3",
-    "morgan": "~1.8.1",
     "jsonwebtoken": "^7.4.1",
+    "mongoose": "^4.11.5",
+    "morgan": "~1.8.1",
     "serve-favicon": "~2.4.2"
   }
 }
