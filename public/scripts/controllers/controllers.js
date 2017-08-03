@@ -153,7 +153,7 @@ app.controller("RoomAdminController", function($scope, $routeParams, $rootScope,
     $scope.message = 'Submitting item';
     console.log("RoomAdminController submit");
 
-    $scope.room.$update().then(
+    $scope.room.$update({id: $scope.roomId}).then(
       function() { $scope.message = "Updated successfully";},
       function(error) { $scope.message = "Submission error " + error.status + " " + error.statusText;},
     );

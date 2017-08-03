@@ -179,27 +179,15 @@ app.put("/api/rooms/:id", function(req,res) {
       room.floor = req.body.floor;
       room.building = req.body.building;
       room.site = req.body.site;room.save(function(err,savedroom,count) {
-			if (err) {
-				console.log("Cannot save data: " + err);
-        res.status(500);
-        res.json();
-			} else {
-        res.status(201);
-				res.json(savedroom);
-			}
-		});
-      room.type = req.body.type;
-      // TODO save updated info to DB
-      room.save(function(err,savedroom,count) {
         if (err) {
           console.log("Cannot save data: " + err);
           res.status(500);
           res.json();
         } else {
-          res.status(201);
+          res.status(200);
           res.json(savedroom);
         }
-      });
+		  });
     }
   });
 });
