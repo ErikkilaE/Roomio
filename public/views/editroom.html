@@ -18,12 +18,9 @@
       <option value="MEETING">Meeting room</option>
       <option value="CLASSROOM">Classroom</option>
     </select><br>
-    <select name="features" id="features" ng-model="room.features" multiple="true">
-      <option value="PROJECTOR">Data projector</option>
-      <option value="BLACKBOARD">Blackboard</option>
-      <option value="WHITEBOARD">Whiteboard</option>
-      <option value="FLAPPY">Flappyboard</option>
-      <option value="VIDEOCONF">Video conference</option>
+    <label for="features">Features</label>:
+    <select name="features" id="features" ng-model="room.features" multiple="true"
+            ng-options="feat.id as feat.name for feat in featureOptions">
     </select><br>
 
     <input type="submit" name="button" value="Update room">

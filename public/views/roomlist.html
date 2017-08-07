@@ -26,7 +26,11 @@
         <td>{{r.floor}}</td>
         <td>{{r.site}}</td>
         <td>{{r.type}}</td>
-        <td>{{r.features}}</td>
+        <td>
+          <span class="featurebutton" ng-repeat='feature in r.features'>
+            {{featureOptions[feature]}}
+          </span>
+        </td>
       </tr>
     </tbody>
   </table>
