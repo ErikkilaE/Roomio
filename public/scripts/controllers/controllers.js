@@ -1,6 +1,6 @@
 var app = angular.module("Controllers", ["Factories"]);
 
-app.controller("RoomController", function($scope, $routeParams,$rootScope, Room, Features) {
+app.controller("RoomController", function($scope, $routeParams,$rootScope, Room, Features, RoomTypes) {
   $scope.message = ''; // status message shows whether submission succeeded
 
   $scope.roomId = Number($routeParams.roomId);
@@ -18,6 +18,9 @@ app.controller("RoomController", function($scope, $routeParams,$rootScope, Room,
   // get associative array of features: id -> name
   $scope.featureOptions = Features.getFeatures();
 
+  // get associative array of room types: id -> name
+  $scope.roomTypeOptions = RoomTypes.getRoomTypes();
+
   $scope.getRoomById($scope.roomId);
 
   // change window title (see <title ng-bind...> in index.html)
@@ -32,7 +35,7 @@ app.controller("RoomController", function($scope, $routeParams,$rootScope, Room,
 
 });
 
-app.controller("RoomListController", function($scope, $rootScope, Room, Features) {
+app.controller("RoomListController", function($scope, $rootScope, Room, Features, RoomTypes) {
   $scope.message = ''; // status message shows whether submission succeeded
 
   // change window title (see <title ng-bind...> in index.html)
@@ -40,6 +43,10 @@ app.controller("RoomListController", function($scope, $rootScope, Room, Features
 
   // get associative array of features: id -> name
   $scope.featureOptions = Features.getFeatures();
+
+  // get associative array of room types: id -> name
+  $scope.roomTypeOptions = RoomTypes.getRoomTypes();
+
   $scope.rooms = Room.query();
 
   $scope.getAllRooms = function() {
@@ -101,7 +108,7 @@ app.controller("ReservationListController", function($scope,$rootScope,Reservati
   //$scope.getItems();
 
 });
-app.controller("AddRoomController", function($scope, $routeParams, $rootScope, Room, Features) {
+app.controller("AddRoomController", function($scope, $routeParams, $rootScope, Room, Features, RoomTypes) {
   $scope.message = ''; // status message shows whether submission succeeded
 
   // change window title (see <title ng-bind...> in index.html)
@@ -109,6 +116,9 @@ app.controller("AddRoomController", function($scope, $routeParams, $rootScope, R
 
   // get array of feature options for use with 'ng-options'
   $scope.featureOptions = Features.getFeaturesArray();
+
+  // get array of room type options for use with 'ng-options'
+  $scope.roomTypeOptions = RoomTypes.getRoomTypeArray();
 
   $scope.addRoom = function() {
     $scope.message = 'Submitting item';
@@ -129,13 +139,16 @@ app.controller("AddRoomController", function($scope, $routeParams, $rootScope, R
   }
 });
 
-app.controller("RoomAdminController", function($scope, $routeParams, $rootScope, Room, Features) {
+app.controller("RoomAdminController", function($scope, $routeParams, $rootScope, Room, Features, RoomTypes) {
   $scope.message = ''; // status message shows whether submission succeeded
 
   $scope.roomId = Number($routeParams.roomId);
 
   // get array of feature options for use with 'ng-options'
   $scope.featureOptions = Features.getFeaturesArray();
+
+  // get array of room type options for use with 'ng-options'
+  $scope.roomTypeOptions = RoomTypes.getRoomTypeArray();
 
   // change window title (see <title ng-bind...> in index.html)
   $rootScope.pageTitle = 'Room.io - RoomAdminController';

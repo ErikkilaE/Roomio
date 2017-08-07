@@ -8,7 +8,7 @@
     <li><b>Floor:</b> {{room.floor}}</li>
     <li><b>Building:</b> {{room.building}}</li>
     <li><b>Site:</b> {{room.site}}</li>
-    <li><b>Type:</b> {{room.type}}</li>
+    <li><b>Type:</b> {{roomTypeOptions[room.type]}}</li>
     <li><b>Features:</b>
       <span class="featurebutton" ng-repeat='feature in room.features'>
         {{featureOptions[feature]}}

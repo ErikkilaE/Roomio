@@ -14,9 +14,8 @@
     <label for="floor">Floor</label>:
     <input type="number" min=1 name="floor" id="floor" value="" ng-model="floor"><br>
     <label for="type">Room type</label>:
-    <select name="type" id="type" ng-model="type">
-      <option value="MEETING">Meeting room</option>
-      <option value="CLASSROOM">Classroom</option>
+    <select name="type" id="type" ng-model="type"
+            ng-options="t.id as t.name for t in roomTypeOptions">
     </select><br>
     <label for="features">Features</label>:
     <select name="features" id="features" ng-model="features" multiple="true"

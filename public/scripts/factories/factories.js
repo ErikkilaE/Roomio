@@ -45,3 +45,35 @@ app.factory("Features", function() {
 
   return factory;
 });
+
+app.factory("RoomTypes", function() {
+  var factory = {};
+  var typesArray = [
+    { id: "MEETING",  name: "Meeting room" },
+    { id: "CLASSROOM", name: "Class room" },
+    { id: "AUDITORIUM", name: "Auditorium" }
+  ];
+  var types = { };
+
+  factory.getRoomTypes = function () {
+    if (angular.equals(types, {})) {
+      typesArray.forEach(function(x) {
+        types[x.id] = x.name;
+      });
+      return types;
+    } else {
+      // return cached values
+      return types;
+    }
+  };
+
+  factory.getRoomTypeArray = function () {
+    return typesArray;
+  };
+  factory.addRoomType = function (id, name) {
+    typesArray.push({id: id, name: name});
+    types = {};
+  };
+
+  return factory;
+});

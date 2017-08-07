@@ -25,7 +25,7 @@
         <td>{{r.building}}</td>
         <td>{{r.floor}}</td>
         <td>{{r.site}}</td>
-        <td>{{r.type}}</td>
+        <td>{{roomTypeOptions[r.type]}}</td>
         <td>
           <span class="featurebutton" ng-repeat='feature in r.features'>
             {{featureOptions[feature]}}
