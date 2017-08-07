@@ -181,6 +181,7 @@ app.put("/api/rooms/:id", function(req,res) {
       room.building = req.body.building;
       room.site = req.body.site;
       room.type = req.body.type;
+      room.features = req.body.features;
       room.save(function(err,savedroom,count) {
         if (err) {
           console.log("Cannot save data: " + err);

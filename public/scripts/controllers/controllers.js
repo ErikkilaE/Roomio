@@ -7,10 +7,11 @@ app.controller("RoomController", function($scope, $routeParams,$rootScope, Room)
 
   $scope.getRoomById = function (id) {
     $scope.room = new Room();
-    $scope.room.id = id;
     console.log("searching for item with ID " + id)
-    $scope.room.$get().then(
-      function() { $scope.message = "Item room";},
+    $scope.room.$get({id: id}).then(
+      function() {
+        $scope.message = "Item room";
+        $rootScope.pageTitle = 'Room.io - Room: ' + $scope.room.name; },
       function(error) { $scope.message = "Query error: " + error.status + " " + error.statusText;},
     );
   };
@@ -20,11 +21,11 @@ app.controller("RoomController", function($scope, $routeParams,$rootScope, Room)
   // change window title (see <title ng-bind...> in index.html)
   $rootScope.pageTitle = 'Room.io - RoomController';
 
-  $scope.getAllRooms = function() {
-    console.log("Getting list of rooms");
-    $scope.rooms = Room.query();
-    return $scope.rooms;
-  }
+  //$scope.getAllRooms = function() {
+  //  console.log("Getting list of rooms");
+  //  $scope.rooms = Room.query();
+  //  return $scope.rooms;
+  //}
 
 
 });
@@ -112,6 +113,7 @@ app.controller("AddRoomController", function($scope, $routeParams, $rootScope, R
     newroom.building = $scope.building;
     newroom.site = $scope.site;
     newroom.type = $scope.type;
+    newroom.features = $scope.features;
 
     newroom.$save().then(
       function() { $scope.message = "Submitted successfully";},

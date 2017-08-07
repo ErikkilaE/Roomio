@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <div ng-controller="RoomController">
-  <h2>Room {{roomId}} details</h2>
+  <h2>Room {{room.name}} ({{roomId}}) details</h2>
 
   <ul>
     <li><b>Name:</b> {{room.name}}</li>
-    <li><b>Price:</b> {{room.price}}</li>
     <li><b>Capacity:</b> {{room.capacity}}</li>
     <li><b>Floor:</b> {{room.floor}}</li>
     <li><b>Building:</b> {{room.building}}</li>
@@ -12,7 +11,7 @@
     <li><b>Type:</b> {{room.type}}</li>
     <li><b>Features:</b> {{room.features}}</li>
 
-    <li><b>ID:</b> {{room.id}}</li>
+    <li><b>_id:</b> {{room._id}}</li>
   </ul>
 
   <p><a href="#/editroom/{{room.roomId}}">Edit room</a></p>
