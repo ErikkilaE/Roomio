@@ -9,12 +9,11 @@ a {
 */
 
 .featurebutton {
-  border-color: #5555ff;
-  border-width: 1px;
   border-radius: 5px;
-  border-style: solid;
-  background-color: #eeeeff;
+  background-color: #5555ff;
   font-weight: bold;
+  font-size: smaller;
+  color: #ffffff;
   padding-left: 0.25em;
   padding-right: 0.25em;
   margin-left: 0.1em;
