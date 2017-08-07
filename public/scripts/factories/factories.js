@@ -24,13 +24,13 @@ app.factory("Features", function() {
   var features = { };
 
   factory.getFeatures = function () {
-    if (features == {}) {
-      // return cached values
-      return features;
-    } else {
+    if (angular.equals(features, {})) {
       featureArray.forEach(function(x) {
         features[x.id] = x.name;
       });
+      return features;
+    } else {
+      // return cached values
       return features;
     }
   };
