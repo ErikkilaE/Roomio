@@ -1,8 +1,22 @@
-body {
+/*body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+*/
+
+.featurebutton {
+  border-color: #5555ff;
+  border-width: 1px;
+  border-radius: 5px;
+  border-style: solid;
+  background-color: #eeeeff;
+  font-weight: bold;
+  padding-left: 0.25em;
+  padding-right: 0.25em;
+  margin-left: 0.1em;
+  margin-right: 0.1em;
 }
