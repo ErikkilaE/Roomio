@@ -145,7 +145,7 @@ app.controller("RoomAdminController", function($scope, $routeParams, $rootScope,
   $scope.roomId = Number($routeParams.roomId);
 
   // get array of feature options for use with 'ng-options'
-  $scope.featureOptions = Features.getFeaturesArray();
+  $scope.featureOptions = Features.getFeatures();
 
   // get array of room type options for use with 'ng-options'
   $scope.roomTypeOptions = RoomTypes.getRoomTypeArray();

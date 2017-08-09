@@ -18,12 +18,12 @@
             ng-options="t.id as t.name for t in roomTypeOptions">
     </select><br>
     <label>Features</label>:
-    <div class="featurecb" ng-repeat="f in featureOptions">
-      <input type="checkbox" id="feature-cb-{{f.id}}" name="features" ng-model="room.features">
-      <label for="feature-cb-{{f.id}}">{{f.name}}</label>
+    <div class="featurecb" ng-repeat="(id, name) in featureOptions">
+      <input type="checkbox" id="feature-cb-{{id}}" name="features" ng-model="room.features">
+      <label for="feature-cb-{{id}}">{{name}}</label>
     </div>
     <br>
-
+    <!-- select as label for (key , value) in object -->
     <input type="submit" name="button" value="Update room">
   </form>
 
