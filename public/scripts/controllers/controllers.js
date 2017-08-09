@@ -111,11 +111,12 @@ app.controller("ReservationListController", function($scope,$rootScope,Reservati
 app.controller("AddRoomController", function($scope, $routeParams, $rootScope, Room, Features, RoomTypes) {
   $scope.message = ''; // status message shows whether submission succeeded
 
+  $scope.features = [];
   // change window title (see <title ng-bind...> in index.html)
   $rootScope.pageTitle = 'Room.io - RoomAdminController';
 
-  // get array of feature options for use with 'ng-options'
-  $scope.featureOptions = Features.getFeaturesArray();
+  // get associative array of feature options for use with 'ng-repeat + checklist-model'
+  $scope.featureOptions = Features.getFeatures();
 
   // get array of room type options for use with 'ng-options'
   $scope.roomTypeOptions = RoomTypes.getRoomTypeArray();
@@ -144,7 +145,7 @@ app.controller("RoomAdminController", function($scope, $routeParams, $rootScope,
 
   $scope.roomId = Number($routeParams.roomId);
 
-  // get array of feature options for use with 'ng-options'
+  // get associative array of feature options for use with 'ng-repeat + checklist-model'
   $scope.featureOptions = Features.getFeatures();
 
   // get array of room type options for use with 'ng-options'

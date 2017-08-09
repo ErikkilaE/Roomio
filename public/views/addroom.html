@@ -18,9 +18,9 @@
             ng-options="t.id as t.name for t in roomTypeOptions">
     </select><br>
     <label>Features</label>:
-    <div class="featurecb" ng-repeat="f in featureOptions">
-      <input type="checkbox" id="feature-cb-{{f.id}}" name="features" ng-model="features">
-      <label for="feature-cb-{{f.id}}">{{f.name}}</label>
+    <div class="featurecb" ng-repeat="(id,name) in featureOptions">
+      <input type="checkbox" id="feature-cb-{{id}}" name="features" checklist-value="id" checklist-model="features">
+      <label for="feature-cb-{{id}}">{{name}}</label>
     </div>
     <br>
     <input type="submit" name="button" value="Add room">
