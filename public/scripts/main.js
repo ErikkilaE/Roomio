@@ -1,4 +1,4 @@
-var app = angular.module("RoomioApp",["ngRoute","Controllers"]);
+var app = angular.module("RoomioApp",["ngRoute","Controllers","checklist-model"]);
 
 app.config(['$locationProvider', function($locationProvider) {
   $locationProvider.hashPrefix('');
