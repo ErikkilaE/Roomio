@@ -46,6 +46,8 @@ app.controller("RoomListController", function($scope, $rootScope, Room, Features
 
   // get associative array of room types: id -> name
   $scope.roomTypeOptions = RoomTypes.getRoomTypes();
+  // get array of room type options for use with 'ng-options'
+  $scope.roomTypeArray = RoomTypes.getRoomTypeArray();
 
   $scope.rooms = Room.query();
 
