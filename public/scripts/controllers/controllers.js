@@ -49,6 +49,7 @@ app.controller("RoomListController", function($scope, $rootScope, Room, Features
   // get array of room type options for use with 'ng-options'
   $scope.roomTypeArray = RoomTypes.getRoomTypeArray();
 
+  $scope.advFilter = {features: []};
   $scope.rooms = Room.query();
 
   $scope.getAllRooms = function() {
@@ -57,6 +58,17 @@ app.controller("RoomListController", function($scope, $rootScope, Room, Features
     return $scope.rooms;
   }
 
+  $scope.filterByFeatures = function (room, index, allrooms) {
+    var requiredFeatures = $scope.advFilter.features;
+    var result = true;
+    if (Array.isArray(requiredFeatures)) {
+      result = requiredFeatures.every(function(element, index, array) {
+        return room.features.includes(element);
+      });
+    }
+    return result;
+  }
+  
   $scope.getRoomById = function (id) {
     $scope.item = new Room();
     $scope.item.id = id;
