@@ -82,6 +82,15 @@ app.controller("RoomListController", function($scope, $rootScope, Room, Features
     return result;
   };
 
+  $scope.floorDistance = function (room) {
+    var floor = $scope.advFilter.floor;
+    if (floor) {
+      return Math.abs(room.floor - floor);
+    } else {
+      return 0;
+    }
+  };
+
   $scope.getRoomById = function (id) {
     $scope.item = new Room();
     $scope.item.id = id;

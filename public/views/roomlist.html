@@ -36,7 +36,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat='r in rooms | filter:basicFilter | filter:filterByFeatures | filter:filterByParticipants'>
+      <tr ng-repeat='r in rooms | filter:basicFilter | filter:filterByFeatures | filter:filterByParticipants | orderBy:floorDistance'>
         <td>{{r.roomId}}</td>
         <td><a href="#/room/{{r.roomId}}">{{r.name}}</a></td>
         <td>{{r.capacity}}</td>
