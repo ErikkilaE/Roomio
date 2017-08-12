@@ -4,14 +4,15 @@
 
   <label for="name">Room name</label>:
   <input type="text" name="name" id="name" value="" ng-model="basicFilter.name"><br>
-  <label for="capacity">Capacity</label>:
-  <input type="number" min=0 name="capacity" id="capacity" value="" ng-model="roomFilter.capacity"><br>
+  <label for="participants">Number of participants</label>:
+  <input type="number" min=0 name="participants" id="participants" value="" ng-model="advFilter.participants"><br>
   <label for="building">Building</label>:
   <input type="text" name="building" id="building" value="" id="building" ng-model="basicFilter.building">
   <label for="site">Site</label>:
   <input type="text" name="site" id="site" value="" id="site" ng-model="basicFilter.site"><br>
   <label for="floor">Floor</label>:
   <input type="number" min=0 name="floor" id="floor" value="" ng-model="advFilter.floor"><br>
+  <label for="type">Room type</label>:
   <select name="type" id="type" ng-model="basicFilter.type" ng-options="t.id as t.name for t in roomTypeArray">
   </select><br>
   <label>Features</label>:
@@ -35,7 +36,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat='r in rooms | filter:basicFilter | filter:filterByFeatures'>
+      <tr ng-repeat='r in rooms | filter:basicFilter | filter:filterByFeatures | filter:filterByParticipants'>
         <td>{{r.roomId}}</td>
         <td><a href="#/room/{{r.roomId}}">{{r.name}}</a></td>
         <td>{{r.capacity}}</td>

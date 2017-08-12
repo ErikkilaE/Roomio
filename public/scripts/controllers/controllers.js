@@ -68,7 +68,20 @@ app.controller("RoomListController", function($scope, $rootScope, Room, Features
     }
     return result;
   }
-  
+
+  $scope.filterByParticipants = function (room, index, allrooms) {
+    var minimum = $scope.advFilter.participants;
+    var result = true;
+    if (minimum) {
+      // include rooms with capacity >= minumum
+      result = room.capacity >= minimum;
+    } else {
+      // not defined -> include all rooms
+      result = true;
+    }
+    return result;
+  };
+
   $scope.getRoomById = function (id) {
     $scope.item = new Room();
     $scope.item.id = id;
