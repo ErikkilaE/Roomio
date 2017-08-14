@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<div ng-controller="ReservationListController">
+  <h2>Reservation list</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Room</th>
+        <th>Time</th>
+        <th>Duration</th>
+        <th>Reserver</th>
+        <th>Coffees</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat='r in reservations'>
+        <td>{{r.id}}</td>
+        <td><a href="#/reservation/{{r.reservationId}}">{{r.reservationId}}</a></td>
+        <td>{{r.StartTime}}</td>
+        <td>{{r.LengthOfReservation}}</td>
+        <td><a href="mailto:{{r.Email}}">{{r.ReserverName}}</a></td>
+        <td>{{r.CountOfCoffee}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><em>Status message: {{message}}</em></p>
+
+</div>

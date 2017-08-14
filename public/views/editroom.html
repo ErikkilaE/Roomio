@@ -2,7 +2,7 @@
 <div ng-controller="RoomAdminController">
   <p>Edit room {{roomId}} details</p>
 
-  <form ng-submit="save()">
+  <form ng-submit="update()">
     <label for="name">Room name</label>:
     <input type="text" name="name" id="name" value="" ng-model="room.name"><br>
     <label for="capacity">Capacity</label>:
@@ -14,11 +14,15 @@
     <label for="floor">Floor</label>:
     <input type="number" min=1 name="floor" id="floor" value="" ng-model="room.floor"><br>
     <label for="type">Room type</label>:
-    <select name="type" id="type" ng-model="room.type">
-      <option value="MEETING">Meeting room</option>
-      <option value="CLASS">Classroom</option>
+    <select name="type" id="type" ng-model="room.type"
+            ng-options="t.id as t.name for t in roomTypeOptions">
     </select><br>
-
+    <label>Features</label>:
+    <div class="featurecb" ng-repeat="(id,name) in featureOptions">
+      <input type="checkbox" id="feature-cb-{{id}}" name="features" checklist-value="id" checklist-model="room.features">
+      <label for="feature-cb-{{id}}">{{name}}</label>
+    </div>
+    <br>
     <input type="submit" name="button" value="Update room">
   </form>
 

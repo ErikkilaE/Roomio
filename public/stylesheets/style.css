@@ -1,8 +1,35 @@
-body {
+/*body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+*/
+
+.featurebutton {
+  border-radius: 5px;
+  background-color: #5555ff;
+  font-weight: bold;
+  font-size: smaller;
+  color: #ffffff;
+  padding-left: 0.25em;
+  padding-right: 0.25em;
+  margin-left: 0.1em;
+  margin-right: 0.1em;
+}
+
+.featurecb {
+  display: inline-block;
+  border-radius: 5px;
+  /*border-style: solid;
+  border-width: thin;
+  border-color: #cccccc;*/
+  background-color: #ccccff;
+  font-weight: bold;
+  /* font-size: smaller; */
+  /*color: #ffffff;*/
+  padding: 0.1em 0.25em;
+  margin: 0.1em;
 }

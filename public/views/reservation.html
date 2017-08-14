@@ -2,14 +2,14 @@
 <div ng-controller="ReservationController">
   <h2>Reservation details</h2>
 
-  ID: <input type="number" ng-model="id"><br>
-  <button type="button" name="button" ng-click="search(id)" >Search</button>
-
   <ul>
-    <li><b>Name:</b> {{item.name}}</li>
-    <li><b>Price:</b> {{item.price}}</li>
-    <li><b>Count:</b> {{item.count}}</li>
-    <li><b>ID:</b> {{item.id}}</li>
+    <li><b>Room:</b> {{reservation.roomId}}</li>
+    <li><b>Start:</b> {{reservation.StartTime}}</li>
+    <li><b>Duration:</b> {{reservation.LengthOfReservation}}</li>
+    <li><b>Reserver name</b> {{reservation.ReserverName}}</li>
+    <li><b>EMail:</b> {{reservation.Email}}</li>
+    <li><b>Number of coffees:</b> {{reservation.CountOfCoffee}}</li>
+    <li><b>ID:</b> {{reservation.id}}</li>
   </ul>
 
   <p><em>Status message: {{message}}</em></p>

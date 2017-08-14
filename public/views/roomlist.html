@@ -2,8 +2,26 @@
 <div ng-controller="RoomListController">
   <h2>Room list</h2>
 
-  <button type="button" ng-click="getItems()">Load list</button>
+  <label for="name">Room name</label>:
+  <input type="text" name="name" id="name" value="" ng-model="basicFilter.name"><br>
+  <label for="participants">Number of participants</label>:
+  <input type="number" min=0 name="participants" id="participants" value="" ng-model="advFilter.participants"><br>
+  <label for="building">Building</label>:
+  <input type="text" name="building" id="building" value="" id="building" ng-model="basicFilter.building">
+  <label for="site">Site</label>:
+  <input type="text" name="site" id="site" value="" id="site" ng-model="basicFilter.site"><br>
+  <label for="floor">Floor</label>:
+  <input type="number" min=0 name="floor" id="floor" value="" ng-model="advFilter.floor"><br>
+  <label for="type">Room type</label>:
+  <select name="type" id="type" ng-model="basicFilter.type" ng-options="t.id as t.name for t in roomTypeArray">
+  </select><br>
+  <label>Features</label>:
+  <div class="featurecb" ng-repeat="(id,name) in featureOptions">
+    <input type="checkbox" id="feature-cb-{{id}}" name="features" checklist-value="id" checklist-model="advFilter.features">
+    <label for="feature-cb-{{id}}">{{name}}</label>
+  </div>
 
+  <hr>
   <table>
     <thead>
       <tr>
@@ -18,15 +36,19 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat='r in rooms'>
-        <td>{{r.id}}</td>
-        <td><a href="#/room/{{r.id}}">{{r.name}}</a></td>
+      <tr ng-repeat='r in rooms | filter:basicFilter | filter:filterByFeatures | filter:filterByParticipants | orderBy:floorDistance'>
+        <td>{{r.roomId}}</td>
+        <td><a href="#/room/{{r.roomId}}">{{r.name}}</a></td>
         <td>{{r.capacity}}</td>
         <td>{{r.building}}</td>
         <td>{{r.floor}}</td>
         <td>{{r.site}}</td>
-        <td>{{r.type}}</td>
-        <td>{{r.features}}</td>
+        <td>{{roomTypeOptions[r.type]}}</td>
+        <td>
+          <span class="featurebutton" ng-repeat='feature in r.features'>
+            {{featureOptions[feature]}}
+          </span>
+        </td>
       </tr>
     </tbody>
   </table>
