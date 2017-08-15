@@ -48,7 +48,7 @@ var mongoose = require("mongoose");
 var Room = require("./backend/models/roomSchema");
 var Reservation = require("./backend/models/reservationSchema");
 var User = require("./backend/models/userSchema");
-mongoose.connect(config.database);
+mongoose.connect(config.database, {useMongoClient: true});
 
 var rooms = [];
 var reservations = [];
