@@ -3,14 +3,10 @@ var mongoose = require( "mongoose" );
 var Schema = mongoose.Schema;
 
 module.exports = mongoose.model("Reservation", new Schema({
-  reservationId: {
-    type: Number,
-    unique: true,
-    index: true
-  },
   room: { // references rooms
     type: Schema.Types.ObjectId,
-    ref: "Room"
+    ref: "Room",
+    index: true
   },
   description: String,
   startTime: Date,
