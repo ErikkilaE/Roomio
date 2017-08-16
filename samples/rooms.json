@@ -1,0 +1,15 @@
+{"name":"Mustekala","roomId":100,"building":"Bisneskatu 3A","capacity":8,"floor":2,"site":"Sivukonttori","type":"CLASSROOM","features":["FLAPPY","VIDEOCONF"]}
+{"name":"Muikku","building":"Bisneskatu 3A","capacity":4,"features":["WHITEBOARD"],"floor":2,"roomId":101,"site":"Sivukonttori","type":"MEETING"}
+{"name":"Hauki","roomId":102,"building":"Bisneskatu 3A","capacity":10,"floor":4,"site":"Sivukonttori","type":"MEETING","features":["PROJECTOR","BLACKBOARD","FLAPPY"]}
+{"name":"Kaskelotti","roomId":103,"building":"Bisneskatu 3A","capacity":15,"floor":3,"site":"Sivukonttori","type":"CLASSROOM","features":["BLACKBOARD"]}
+{"building":"Bisneskatu 3A","capacity":8,"features":["PROJECTOR","WHITEBOARD","FLAPPY"],"floor":3,"name":"Ahven","roomId":104,"site":"Sivukonttori","type":"MEETING"}
+{"building":"Bisneskatu 3A","capacity":50,"features":["PROJECTOR","BLACKBOARD"],"floor":2,"name":"Valas","roomId":105,"site":"Sivukonttori","type":"CLASSROOM"}
+{"name":"Silakka","roomId":106,"building":"Bisneskatu 3A","capacity":5,"floor":4,"site":"Sivukonttori","type":"MEETING","features":["FLAPPY","PROJECTOR"]}
+{"building":"Terra","capacity":6,"features":["FLAPPY","WHITEBOARD"],"floor":3,"name":"Merkurius","roomId":110,"site":"Headquarters","type":"MEETING"}
+{"name":"Venus","roomId":111,"building":"Terra","site":"Headquarters","floor":2,"capacity":12,"type":"MEETING","features":["WHITEBOARD","PROJECTOR"]}
+{"name":"Mars","roomId":112,"building":"Terra","site":"Headquarters","floor":2,"capacity":10,"type":"MEETING","features":["WHITEBOARD","PROJECTOR"]}
+{"name":"Jupiter","roomId":113,"building":"Luna","site":"Headquarters","floor":1,"capacity":70,"type":"AUDITORIUM","features":["WHITEBOARD","PROJECTOR"]}
+{"name":"Saturnus","roomId":114,"building":"Luna","site":"Headquarters","floor":2,"capacity":60,"type":"AUDITORIUM","features":["WHITEBOARD","PROJECTOR"]}
+{"name":"Uranus","roomId":115,"building":"Terra","site":"Headquarters","floor":1,"capacity":24,"type":"CLASSROOM","features":["WHITEBOARD","PROJECTOR"]}
+{"name":"Neptunus","roomId":116,"building":"Terra","site":"Headquarters","floor":1,"capacity":24,"type":"CLASSROOM","features":["WHITEBOARD","PROJECTOR"]}
+{"building":"Terra","capacity":10,"features":["PROJECTOR","FLAPPY"],"floor":1,"name":"Pluto","roomId":117,"site":"Headquarters","type":"MEETING"}
