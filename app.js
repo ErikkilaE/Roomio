@@ -90,7 +90,9 @@ app.get("/api/rooms", function(req,res) {
 
 app.get("/api/rooms/:id", function(req,res) {
   var id = req.params.id;
-  console.log("get room with id " + id);
+  q = {};
+
+  console.log("get room with eoomId " + id);
   Room.findOne({"roomId": id}, function(err,item) {
     if (err) {
       console.log("Cannot find on:" + err);
@@ -170,8 +172,21 @@ app.put("/api/rooms/:id", function(req,res) {
 // -------------- Reservations --------------------
 
 app.get("/api/reservations", function(req,res) {
-  console.log("get all reservations");
-  Reservation.find(function(err,items,count) {
+  var roomid = req.query.room;
+  var after = req.query.since;
+  if (after) {
+    after = new Date(after);
+  }
+
+  var query = Reservation.find();
+  if (roomid) {
+    query.where('room').equals(roomid);
+  }
+  if (after) {
+    query.where('startTime').gte(after);
+  }
+  query.sort('startTime');
+  query.exec(function(err,items,count) {
     if (err) {
       console.log("Cannot find data: " + err);
       res.status(500);
