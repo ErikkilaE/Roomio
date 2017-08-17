@@ -106,7 +106,7 @@ app.controller("RoomListController", function($scope, $rootScope, Room, Features
 app.controller("ReservationController", function($scope,$rootScope, $routeParams,Reservation) {
   $scope.message = ''; // status message shows whether submission succeeded
 
-  $scope.reservationId = Number($routeParams.reservationId);
+  $scope.reservationId = $routeParams.reservationId;
 
   // change window title (see <title ng-bind...> in index.html)
   $rootScope.pageTitle = 'Room.io - ReservationController';

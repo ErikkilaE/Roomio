@@ -22,7 +22,7 @@ module.exports = mongoose.model("Room", new Schema({
   site: String,
   type: { // Room type
     type: String,
-    enum: ["MEETING", "CLASSROOM" ]
+    enum: ["MEETING", "CLASSROOM", "AUDITORIUM" ]
   },
   features: [String]
 }));
