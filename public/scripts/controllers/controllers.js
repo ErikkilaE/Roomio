@@ -3,7 +3,7 @@ var app = angular.module("Controllers", ["Factories"]);
 app.controller("RoomController", function($scope, $routeParams,$rootScope, Room, Features, RoomTypes) {
   $scope.message = ''; // status message shows whether submission succeeded
 
-  $scope.roomId = Number($routeParams.roomId);
+  $scope.roomId = $routeParams.roomId;
 
   $scope.getRoomById = function (id) {
     $scope.room = new Room();

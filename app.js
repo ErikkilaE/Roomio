@@ -91,9 +91,14 @@ app.get("/api/rooms", function(req,res) {
 app.get("/api/rooms/:id", function(req,res) {
   var id = req.params.id;
   q = {};
+  if (id.match(/^[0-9,a-f]{24}$/i)) {
+    // id is am ObjectID
+    q._id = id;
+  } else {
+    q.roomId = id;
+  }
 
-  console.log("get room with eoomId " + id);
-  Room.findOne({"roomId": id}, function(err,item) {
+  Room.findOne(q, function(err,item) {
     if (err) {
       console.log("Cannot find on:" + err);
       res.status(404);
