@@ -15,12 +15,12 @@
     </thead>
     <tbody>
       <tr ng-repeat='r in reservations'>
-        <td>{{r.id}}</td>
-        <td><a href="#/reservation/{{r.reservationId}}">{{r.reservationId}}</a></td>
-        <td>{{r.StartTime}}</td>
-        <td>{{r.LengthOfReservation}}</td>
+        <td><a href="#/reservation/{{r._id}}">{{r._id}}</a></td>
+        <td>{{r.room}}</td>
+        <td>{{r.startTime}}</td>
+        <td>{{r.lengthOfReservation}}</td>
         <td><a href="mailto:{{r.Email}}">{{r.ReserverName}}</a></td>
-        <td>{{r.CountOfCoffee}}</td>
+        <td>{{r.countOfCoffee}}</td>
       </tr>
     </tbody>
   </table>
