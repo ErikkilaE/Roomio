@@ -16,8 +16,8 @@
     <tbody>
       <tr ng-repeat='r in reservations'>
         <td><a href="#/reservation/{{r._id}}">{{r._id}}</a></td>
-        <td>{{r.room}}</td>
-        <td>{{r.startTime}}</td>
+        <td><a href="#/room/{{r.room}}">{{r.room}}</a></td>
+        <td>{{r.startTime | date:'yyyy-MM-dd HH:mm:ss Z'}}</td>
         <td>{{r.lengthOfReservation}}</td>
         <td><a href="mailto:{{r.Email}}">{{r.ReserverName}}</a></td>
         <td>{{r.countOfCoffee}}</td>
