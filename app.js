@@ -179,6 +179,7 @@ app.put("/api/rooms/:id", function(req,res) {
 app.get("/api/reservations", function(req,res) {
   var roomid = req.query.room;
   var after = req.query.since;
+  var populate = req.query.populate;
   if (after) {
     after = new Date(after);
   }
@@ -189,6 +190,9 @@ app.get("/api/reservations", function(req,res) {
   }
   if (after) {
     query.where('startTime').gte(after);
+  }
+  if (populate) {
+    query.populate(populate);
   }
   query.sort('startTime');
   query.exec(function(err,items,count) {
@@ -204,8 +208,13 @@ app.get("/api/reservations", function(req,res) {
 
 app.get("/api/reservations/:id", function(req,res) {
   var id = req.params.id;
+  var populate = req.query.populate;
   console.log("get reservation with id " + id);
-  Reservation.findOne({"_id": id}, function(err,item) {
+  var query = Reservation.findOne({"_id": id});
+  if (populate) {
+    query.populate(populate);
+  }
+  query.exec(function(err,item) {
     if (err) {
       console.log("Cannot find on:" + err);
       res.status(404);
