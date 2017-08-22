@@ -59,22 +59,6 @@ function getNewIdFor(name) {
   return c;
 }
 
-function getAllRooms() {
-  return rooms;
-}
-
-function getRoomById(id) {
-  var r = getAllRooms();
-  var l = r.length;
-  for (var i = 0; i < l; i++) {
-    if (id == r[i].id) {
-      return r[i];
-    }
-  }
-  // not found, error
-  return false; // return what?
-}
-
 app.get("/api/rooms", function(req,res) {
   console.log("get all rooms");
   Room.find(function(err,items,count) {
@@ -143,8 +127,6 @@ app.put("/api/rooms/:id", function(req,res) {
   console.log(" updated info: " + req.body)
   var updatedRoom = req.body;
 
-  //var room = getRoomById(id);
-  // ...
   console.log("get room with id " + id + " for update");
   Room.findOne({"roomId": id}, function(err,room) {
     if (err) {
