@@ -59,22 +59,6 @@ function getNewIdFor(name) {
   return c;
 }
 
-function getAllRooms() {
-  return rooms;
-}
-
-function getRoomById(id) {
-  var r = getAllRooms();
-  var l = r.length;
-  for (var i = 0; i < l; i++) {
-    if (id == r[i].id) {
-      return r[i];
-    }
-  }
-  // not found, error
-  return false; // return what?
-}
-
 app.get("/api/rooms", function(req,res) {
   console.log("get all rooms");
   Room.find(function(err,items,count) {
@@ -90,8 +74,15 @@ app.get("/api/rooms", function(req,res) {
 
 app.get("/api/rooms/:id", function(req,res) {
   var id = req.params.id;
-  console.log("get room with id " + id);
-  Room.findOne({"roomId": id}, function(err,item) {
+  q = {};
+  if (id.match(/^[0-9,a-f]{24}$/i)) {
+    // id is am ObjectID
+    q._id = id;
+  } else {
+    q.roomId = id;
+  }
+
+  Room.findOne(q, function(err,item) {
     if (err) {
       console.log("Cannot find on:" + err);
       res.status(404);
@@ -136,8 +127,6 @@ app.put("/api/rooms/:id", function(req,res) {
   console.log(" updated info: " + req.body)
   var updatedRoom = req.body;
 
-  //var room = getRoomById(id);
-  // ...
   console.log("get room with id " + id + " for update");
   Room.findOne({"roomId": id}, function(err,room) {
     if (err) {
@@ -170,8 +159,25 @@ app.put("/api/rooms/:id", function(req,res) {
 // -------------- Reservations --------------------
 
 app.get("/api/reservations", function(req,res) {
-  console.log("get all reservations");
-  Reservation.find(function(err,items,count) {
+  var roomid = req.query.room;
+  var after = req.query.since;
+  var populate = req.query.populate;
+  if (after) {
+    after = new Date(after);
+  }
+
+  var query = Reservation.find();
+  if (roomid) {
+    query.where('room').equals(roomid);
+  }
+  if (after) {
+    query.where('startTime').gte(after);
+  }
+  if (populate) {
+    query.populate(populate);
+  }
+  query.sort('startTime');
+  query.exec(function(err,items,count) {
     if (err) {
       console.log("Cannot find data: " + err);
       res.status(500);
@@ -184,8 +190,13 @@ app.get("/api/reservations", function(req,res) {
 
 app.get("/api/reservations/:id", function(req,res) {
   var id = req.params.id;
+  var populate = req.query.populate;
   console.log("get reservation with id " + id);
-  Reservation.findOne({"_id": id}, function(err,item) {
+  var query = Reservation.findOne({"_id": id});
+  if (populate) {
+    query.populate(populate);
+  }
+  query.exec(function(err,item) {
     if (err) {
       console.log("Cannot find on:" + err);
       res.status(404);
