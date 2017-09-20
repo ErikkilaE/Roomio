@@ -8,6 +8,7 @@ var config = require('./config');
 var jwt = require("jsonwebtoken");
 //var index = require('./routes/index');
 //var users = require('./routes/users');
+var simplifyString = require("simplify-string");
 
 var app = express();
 
@@ -50,13 +51,10 @@ var Reservation = require("./backend/models/reservationSchema");
 var User = require("./backend/models/userSchema");
 mongoose.connect(config.database, {useMongoClient: true});
 
-var rooms = [];
-var counters = {room: 0, reservation: 0};
-
-function getNewIdFor(name) {
-  var c = counters[name];
-  counters[name] = c + 1;
-  return c;
+// generate simplified ID for a room from room information.
+function getNewIdForRoom(room) {
+  var newname = simplifyString(room.name); // just simplify room name
+  return newname;
 }
 
 app.get("/api/rooms", function(req,res) {
@@ -72,11 +70,15 @@ app.get("/api/rooms", function(req,res) {
   });
 });
 
+function isObjectId(str) {
+  return str ? str.match(/^[0-9,a-f]{24}$/i) : false;
+}
+
 app.get("/api/rooms/:id", function(req,res) {
   var id = req.params.id;
   q = {};
-  if (id.match(/^[0-9,a-f]{24}$/i)) {
-    // id is am ObjectID
+  if (isObjectId(id)) {
+    // id is an ObjectID
     q._id = id;
   } else {
     q.roomId = id;
@@ -97,7 +99,6 @@ app.post("/api/rooms", function(req,res) {
   console.log("Adding new room");
 
   var room = new Room({
-    roomId: getNewIdFor('room'),
     name: req.body.name,
     description: req.body.description,
     capacity: req.body.capacity,
@@ -106,6 +107,7 @@ app.post("/api/rooms", function(req,res) {
     site: req.body.site,
     type: req.body.type,
     features: req.body.features,
+    roomId: req.body.roomid ? req.body.roomid : getNewIdForRoom(req.body),
   });
 
   room.save(function(err,savedroom,count) {
@@ -123,12 +125,20 @@ app.post("/api/rooms", function(req,res) {
 
 app.put("/api/rooms/:id", function(req,res) {
   var id = req.params.id;
+  q = {};
+  if (isObjectId(id)) {
+    // id is an ObjectID
+    q._id = id;
+  } else {
+    q.roomId = id;
+  }
+
   console.log("Update info of room having id: " + id);
   console.log(" updated info: " + req.body)
   var updatedRoom = req.body;
 
   console.log("get room with id " + id + " for update");
-  Room.findOne({"roomId": id}, function(err,room) {
+  Room.findOne(q, function(err,room) {
     if (err) {
       console.log("Cannot find on:" + err);
       res.status(404);

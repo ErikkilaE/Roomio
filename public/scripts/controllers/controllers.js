@@ -179,7 +179,7 @@ app.controller("AddRoomController", function($scope, $routeParams, $rootScope, R
 app.controller("RoomAdminController", function($scope, $routeParams, $rootScope, Room, Features, RoomTypes) {
   $scope.message = ''; // status message shows whether submission succeeded
 
-  $scope.roomId = Number($routeParams.roomId);
+  $scope.roomId = $routeParams.roomId;
 
   // get associative array of feature options for use with 'ng-repeat + checklist-model'
   $scope.featureOptions = Features.getFeatures();
