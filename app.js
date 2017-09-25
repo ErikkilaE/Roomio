@@ -9,6 +9,9 @@ var jwt = require("jsonwebtoken");
 //var index = require('./routes/index');
 //var users = require('./routes/users');
 var simplifyString = require("simplify-string");
+var passport = require('passport')
+  , LocalStrategy = require('passport-local').Strategy;
+var session	= require("express-session");
 
 var app = express();
 
@@ -50,6 +53,109 @@ var Room = require("./backend/models/roomSchema");
 var Reservation = require("./backend/models/reservationSchema");
 var User = require("./backend/models/userSchema");
 mongoose.connect(config.database, {useMongoClient: true});
+
+// -------------------- User authentication and session handling --------------------
+
+app.use(session({
+	secret:             "totalSecret",
+	saveUninitialized:  false,
+	resave:             false, 
+	cookie:             {maxAge:1000*60*60*24}
+	/*store:              new mongoStore({
+                            collection:"session",
+                            url:"mongodb://localhost/sessionDb",
+                            ttl:24*60*60
+	})*/
+}));
+
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+		console.log("next");
+		return next();
+	}
+    res.sendStatus(401);
+};
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(function(user, done) {
+  console.log("serialize user:" + JSON.stringify(user));
+  done(null, user._id);
+});
+
+passport.deserializeUser(function(_id, done) {
+  console.log("deserialize user:" + _id);
+  User.findById(_id, function(err, user) {
+    if(err) {
+      console.error('There was an error accessing the records of' +
+      ' user with id: ' + _id);
+      return console.log(err.message);
+    }
+    return done(null, user);
+  })
+});
+
+passport.use(new LocalStrategy({
+        usernameField: "username",
+        passwordField: "password"
+    },
+    function(username, password, done) {
+        User.findOne({ username: username }, function(err, user) {
+            if (err) { 
+                return done(err); 
+            }
+            if (!user) {
+                return done(null, false, { message: 'Incorrect username!' });
+            }
+            if (!user.validPassword(password)) {
+                return done(null, false, { message: 'Incorrect password!' });
+            }
+            return done(null, user);
+        });
+  }
+));
+
+app.post('/login',
+  passport.authenticate('local', { successRedirect: '/',
+                                   failureRedirect: '/login',
+                                   failureFlash: true })
+);
+
+app.post("/logout", function(req,res) {
+	console.log("logout");
+	if(req.session) {
+		req.session.destroy();
+		res.status(200).send({"Message":"Success"});
+	} else {
+		res.status(404).send({"Message":"Failure"});
+	}
+});
+
+app.post("/register", function(req,res) {
+	console.log("register");
+	console.log(req.body);
+	var temp = new User({
+		"uname":req.body.uname,
+		"pword":req.body.pword,
+	});
+
+	temp.save(function(err,item){
+		if (err) {
+			console.log(err);
+			res.status(409);
+			res.json({"Message":"Failure"});
+		} else {
+			res.json({"uname":item.uname,"id":item._id});
+		}
+	});
+});
+
+app.use("/api", isLoggedIn, function(req,res,next) {
+	next();
+});
+
+// -------------------- API to handle Rooms --------------------
 
 // generate simplified ID for a room from room information.
 function getNewIdForRoom(room) {
@@ -166,7 +272,7 @@ app.put("/api/rooms/:id", function(req,res) {
   });
 });
 
-// -------------- Reservations --------------------
+// -------------------- API to handle Reservations --------------------
 
 app.get("/api/reservations", function(req,res) {
   var roomid = req.query.room;
