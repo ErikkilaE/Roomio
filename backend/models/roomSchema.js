@@ -8,7 +8,7 @@ module.exports = mongoose.model("Room", new Schema({
     required: true
   },
   roomId: {
-    type: Number,
+    type: String,
     unique: true,
     index: true
   },

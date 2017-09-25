@@ -3,7 +3,7 @@ var app = angular.module("Controllers", ["Factories"]);
 app.controller("RoomController", function($scope, $routeParams,$rootScope, Room, Features, RoomTypes) {
   $scope.message = ''; // status message shows whether submission succeeded
 
-  $scope.roomId = Number($routeParams.roomId);
+  $scope.roomId = $routeParams.roomId;
 
   $scope.getRoomById = function (id) {
     $scope.room = new Room();
@@ -115,8 +115,8 @@ app.controller("ReservationController", function($scope,$rootScope, $routeParams
     $scope.reservation = new Reservation();
     $scope.reservation.id = id;
     console.log("searching for reservation with ID " + id)
-    $scope.reservation.$get().then(
-      function() { $scope.message = "Reservation room";},
+    $scope.reservation.$get({"populate": "room"}).then(
+      function() { $scope.message = "Reservation room loaded";},
       function(error) { $scope.message = "Query error: " + error.status + " " + error.statusText;},
     );
   };
@@ -129,7 +129,7 @@ app.controller("ReservationController", function($scope,$rootScope, $routeParams
 app.controller("ReservationListController", function($scope,$rootScope,Reservation) {
   $scope.message = ''; // status message shows whether submission succeeded
 
-  $scope.reservations = Reservation.query();
+  $scope.reservations = Reservation.query({"populate": "room"});
   // change window title (see <title ng-bind...> in index.html)
   $rootScope.pageTitle = 'Room.io - ReservationListController';
 
@@ -179,7 +179,7 @@ app.controller("AddRoomController", function($scope, $routeParams, $rootScope, R
 app.controller("RoomAdminController", function($scope, $routeParams, $rootScope, Room, Features, RoomTypes) {
   $scope.message = ''; // status message shows whether submission succeeded
 
-  $scope.roomId = Number($routeParams.roomId);
+  $scope.roomId = $routeParams.roomId;
 
   // get associative array of feature options for use with 'ng-repeat + checklist-model'
   $scope.featureOptions = Features.getFeatures();
