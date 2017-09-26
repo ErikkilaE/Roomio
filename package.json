@@ -13,6 +13,7 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "checklist-model": "^0.11.0",
+    "connect-mongo": "^1.3.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
     "express": "^4.15.3",

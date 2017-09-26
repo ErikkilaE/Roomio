@@ -12,6 +12,7 @@ var simplifyString = require("simplify-string");
 var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
 var session	= require("express-session");
+var mongoStore = require("connect-mongo")(session);
 
 var app = express();
 
@@ -57,15 +58,16 @@ mongoose.connect(config.database, {useMongoClient: true});
 // -------------------- User authentication and session handling --------------------
 
 app.use(session({
-	secret:             "totalSecret",
+	secret:             config.secret,
+    // Siirrä nämä configiin
 	saveUninitialized:  false,
 	resave:             false, 
-	cookie:             {maxAge:1000*60*60*24}
-	/*store:              new mongoStore({
+	cookie:             {maxAge:1000*60*60*24},
+	store:              new mongoStore({
                             collection:"session",
                             url:"mongodb://localhost/sessionDb",
                             ttl:24*60*60
-	})*/
+	})
 }));
 
 function isLoggedIn(req, res, next) {
@@ -101,16 +103,16 @@ passport.use(new LocalStrategy({
         passwordField: "password"
     },
     function(username, password, done) {
-        User.findOne({ username: username }, function(err, user) {
+        User.findOne({ username: username, password: password }, function(err, user) {
             if (err) { 
                 return done(err); 
             }
-            if (!user) {
+            /*if (!user) {
                 return done(null, false, { message: 'Incorrect username!' });
             }
-            if (!user.validPassword(password)) {
+            if (!password)) {
                 return done(null, false, { message: 'Incorrect password!' });
-            }
+            }*/
             return done(null, user);
         });
   }
@@ -118,8 +120,8 @@ passport.use(new LocalStrategy({
 
 app.post('/login',
   passport.authenticate('local', { successRedirect: '/',
-                                   failureRedirect: '/login',
-                                   failureFlash: true })
+                                   failureRedirect: '/#login' /*,
+                                   failureFlash: true*/ })
 );
 
 app.post("/logout", function(req,res) {
@@ -136,8 +138,8 @@ app.post("/register", function(req,res) {
 	console.log("register");
 	console.log(req.body);
 	var temp = new User({
-		"uname":req.body.uname,
-		"pword":req.body.pword,
+		"username":req.body.username,
+		"password":req.body.password,
 	});
 
 	temp.save(function(err,item){
@@ -146,7 +148,7 @@ app.post("/register", function(req,res) {
 			res.status(409);
 			res.json({"Message":"Failure"});
 		} else {
-			res.json({"uname":item.uname,"id":item._id});
+			res.json({"username":item.username,"id":item._id});
 		}
 	});
 });
