@@ -1,6 +1,5 @@
 var express = require('express');
 var path = require('path');
-//var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -12,44 +11,23 @@ var simplifyString = require("simplify-string");
 var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
 var session	= require("express-session");
+var mongoose = require("mongoose");
 var mongoStore = require("connect-mongo")(session);
+//var favicon = require('serve-favicon');
 
 var app = express();
 
-// view engine setup
-//app.set('views', path.join(__dirname, 'views'));
-//app.set('view engine', 'jade');
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+// uncomment after placing your favicon in /public
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 //app.use('/', index);
 //app.use('/users', users);
 
-//// catch 404 and forward to error handler
-//app.use(function(req, res, next) {
-//  var err = new Error('Not Found');
-//  err.status = 404;
-//  next(err);
-//});
-
-//// error handler
-//app.use(function(err, req, res, next) {
-//  // set locals, only providing error in development
-//  res.locals.message = err.message;
-//  res.locals.error = req.app.get('env') === 'development' ? err : {};
-//
-//  // render the error page
-//  res.status(err.status || 500);
-//  res.render('error');
-//});
-
-var mongoose = require("mongoose");
 var Room = require("./backend/models/roomSchema");
 var Reservation = require("./backend/models/reservationSchema");
 var User = require("./backend/models/userSchema");
@@ -57,60 +35,56 @@ mongoose.connect(config.database, {useMongoClient: true});
 
 // -------------------- User authentication and session handling --------------------
 
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(session({
 	secret:             config.secret,
-    // Siirrä nämä configiin
-	saveUninitialized:  false,
-	resave:             false, 
-	cookie:             {maxAge:1000*60*60*24},
+	saveUninitialized:  config.saveUninitialized,
+	resave:             config.resave, 
+	cookie:             config.cookie,
 	store:              new mongoStore({
-                            collection:"session",
-                            url:"mongodb://localhost/sessionDb",
-                            ttl:24*60*60
-	})
+                            collection: config.storeCollection,
+                            url:        config.storeUrl,
+                            ttl:        config.storeTtl})
 }));
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
-		console.log("next");
+		console.log("User is authenticated...");
 		return next();
 	}
     res.sendStatus(401);
 };
 
-app.use(passport.initialize());
-app.use(passport.session());
-
 passport.serializeUser(function(user, done) {
-  console.log("serialize user:" + JSON.stringify(user));
-  done(null, user._id);
+    console.log("Serialize user: " + JSON.stringify(user));
+    done(null, user._id);
 });
 
 passport.deserializeUser(function(_id, done) {
-  console.log("deserialize user:" + _id);
+  console.log("Deserialize user: " + _id);
   User.findById(_id, function(err, user) {
     if(err) {
-      console.error('There was an error accessing the records of' +
-      ' user with id: ' + _id);
+      console.error('Error accessing the records of user with id: ' + _id);
       return console.log(err.message);
     }
     return done(null, user);
   })
 });
 
-passport.use(new LocalStrategy({
+passport.use("login", new LocalStrategy({
         usernameField: "username",
         passwordField: "password"
     },
     function(username, password, done) {
-        User.findOne({ username: username, password: password }, function(err, user) {
+        User.findOne({ "username": username, "password": password }, function(err, user) {
             if (err) { 
                 return done(err); 
             }
-            /*if (!user) {
-                return done(null, false, { message: 'Incorrect username!' });
+            if (!user) {
+                return done(null, false, { message: 'Incorrect user!' });
             }
-            if (!password)) {
+            /*if (!password)) {
                 return done(null, false, { message: 'Incorrect password!' });
             }*/
             return done(null, user);
@@ -118,14 +92,14 @@ passport.use(new LocalStrategy({
   }
 ));
 
-app.post('/login',
-  passport.authenticate('local', { successRedirect: '/',
-                                   failureRedirect: '/#login' /*,
-                                   failureFlash: true*/ })
+app.post("/login",
+    passport.authenticate('login', {successRedirect: '/',
+                                    failureRedirect: '/#login' /*,
+                                    failureFlash: true*/ })
 );
 
 app.post("/logout", function(req,res) {
-	console.log("logout");
+	console.log("Logout");
 	if(req.session) {
 		req.session.destroy();
 		res.status(200).send({"Message":"Success"});
@@ -135,11 +109,11 @@ app.post("/logout", function(req,res) {
 });
 
 app.post("/register", function(req,res) {
-	console.log("register");
+	console.log("Register: ");
 	console.log(req.body);
 	var temp = new User({
-		"username":req.body.username,
-		"password":req.body.password,
+		"username": req.body.username,
+		"password": req.body.password,
 	});
 
 	temp.save(function(err,item){
@@ -403,6 +377,24 @@ app.put("/api/reservations/:id", function(req,res) {
     }
   });
 });
+
+//// catch 404 and forward to error handler
+//app.use(function(req, res, next) {
+//  var err = new Error('Not Found');
+//  err.status = 404;
+//  next(err);
+//});
+
+//// error handler
+//app.use(function(err, req, res, next) {
+//  // set locals, only providing error in development
+//  res.locals.message = err.message;
+//  res.locals.error = req.app.get('env') === 'development' ? err : {};
+//
+//  // render the error page
+//  res.status(err.status || 500);
+//  res.render('error');
+//});
 
 module.exports = app;
 
