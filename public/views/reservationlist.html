@@ -8,8 +8,8 @@
         <th>?</th>
         <th>Room</th>
         <th>Date</th>
-        <th>Time</th>
-        <th>(mins)</th>
+        <th>StartTime</th>
+        <th>EndTime</th>
         <th># Coffee</th>
         <th>Description</th>
       </tr>
@@ -20,7 +20,7 @@
         <td><a href="#/room/{{r.room.roomId}}">{{r.room.name}}</a></td>
         <td>{{r.startTime | date:'yyyy-MM-dd'}}</td>
         <td>{{r.startTime | date:'HH:mm'}}</td>
-        <td>{{r.lengthOfReservation}}</td>
+        <td>{{r.endTime | date:'HH:mm'}}</td>
         <td>{{r.countOfCoffee}}</td>
         <td>{{r.description}}</td>
       </tr>

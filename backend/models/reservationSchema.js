@@ -10,10 +10,7 @@ module.exports = mongoose.model("Reservation", new Schema({
   },
   description: String,
   startTime: Date,
-  lengthOfReservation: {
-    type: Number,
-    min: 1
-  },
+  endTime: Date,
   reserver: { // who reserved room
     type: Schema.Types.ObjectId,
     ref: "User"
