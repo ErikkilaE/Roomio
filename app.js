@@ -345,7 +345,7 @@ app.post("/api/reservations", function(req,res) {
     room: req.body.room,
     description: req.body.description,
     startTime: req.body.startTime,
-    lengthOfReservation: req.body.lengthOfReservation,
+    endTime: req.body.endTime,
     //reserver: req.body.reserver,
     countOfCoffee: req.body.countOfCoffee
   });
@@ -384,7 +384,7 @@ app.put("/api/reservations/:id", function(req,res) {
       // TODO if time changed, check new time doesn't overlap with existing
       // reservations
       reservation.startTime = req.body.startTime;
-      reservation.lengthOfReservation = req.body.lengthOfReservation;
+      reservation.endTime = req.body.endTime;
       // TODO if coffee order changes, inform catering
       reservation.countOfCoffee = req.body.countOfCoffee;
 
