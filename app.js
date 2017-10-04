@@ -277,9 +277,14 @@ app.put("/api/rooms/:id", function(req,res) {
 app.get("/api/reservations", function(req,res) {
   var roomid = req.query.room;
   var after = req.query.since;
+  var before = req.query.upto;
   var populate = req.query.populate;
+
   if (after) {
     after = new Date(after);
+  }
+  if (before) {
+    before = new Date(before);
   }
 
   var query = Reservation.find();
@@ -287,7 +292,10 @@ app.get("/api/reservations", function(req,res) {
     query.where('room').equals(roomid);
   }
   if (after) {
-    query.where('startTime').gte(after);
+    query.where('endTime').gt(after);
+  }
+  if (before) {
+    query.where('startTime').lt(before);
   }
   if (populate) {
     query.populate(populate);
