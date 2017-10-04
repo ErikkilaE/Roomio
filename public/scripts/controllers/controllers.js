@@ -123,7 +123,21 @@ app.controller("ReservationController", function($scope,$rootScope, $routeParams
 
   $scope.getReservationById($scope.reservationId);
 
+  $scope.addReservation = function() {
+    $scope.message = 'Submitting reservation';
+    console.log("ReservationController submit reservation");
+    var newReservation = new Reservation();
+    newReservation.startTime = $scope.reservation.startTime;
+    newReservation.endTime = $scope.reservation.endTime;
+    newReservation.reserver = $scope.reservation.reserver.username;
+    newReservation.description = $scope.reservation.description;
+    newReservation.countOfCoffee = $scope.reservation.countOfCoffee;
 
+    newReservation.$save().then(
+      function() { $scope.message = "Reservation submitted successfully";},
+      function(error) { $scope.message = "Reservation submission error " + error.status + " " + error.statusText;},
+    );
+  }
 });
 
 app.controller("ReservationListController", function($scope,$rootScope,Reservation) {

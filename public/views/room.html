@@ -21,5 +21,30 @@
   <p><a href="#/editroom/{{room.roomId}}">Edit room</a></p>
 
   <p><em>Status message: {{message}}</em></p>
+</div>
+<br/>
+<div ng-controller="ReservationController">
+  <p>Add reservation for room {{roon.name}}</p>
 
+  <form ng-submit="addReservation()">
+    <label for="startTime">Start time</label>:
+    <input type="time" name="startTime" id="startTime" value="" 
+        ng-model="reservation.startTime"><br>
+    <label for="endTime">End time</label>:
+    <input type="time" name="endTime" id="endTime" value="" 
+        ng-model="reservation.endTime"><br>
+    <label for="reserver">Reserver</label>:
+    <input type="text" name="reserver" id="reserver" value="" 
+        ng-model="reservation.reserver.username">
+    <label for="description">Description</label>:
+    <input type="text" name="description" id="description" value=""
+        ng-model="reservation.description"><br>
+    <label for="countOfCoffee">Count of coffee</label>:
+    <input type="number" name="countOfCoffee" id="countOfCoffee" value=""
+        ng-model="reservation.countOfCoffee"><br>
+    <br>
+    <input type="submit" name="button" value="Add reservation">
+  </form>
+
+  <p><em>Status message: {{message}}</em></p>
 </div>
