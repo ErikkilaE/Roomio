@@ -218,7 +218,7 @@ app.put("/api/rooms/:id", function(req,res) {
     q.roomId = id;
   }
 
-  console.log("Update info of room having id: " + id);
+  console.log("Update info of room having id: " + id + " by user: " + req.user.username);
   console.log(" updated info: " + req.body)
   var updatedRoom = req.body;
 
@@ -277,7 +277,8 @@ app.get("/api/reservations", function(req,res) {
     query.where('startTime').lt(before);
   }
   if (populate) {
-    query.populate(populate);
+    query.populate('room'); // for now only allow populate room
+    //FIXME if allow reserver population, remember to not return password!
   }
   query.sort('startTime');
   query.exec(function(err,items,count) {
@@ -293,12 +294,12 @@ app.get("/api/reservations", function(req,res) {
 
 app.get("/api/reservations/:id", function(req,res) {
   var id = req.params.id;
-  var populate = req.query.populate;
   console.log("get reservation with id " + id);
   var query = Reservation.findOne({"_id": id});
-  if (populate) {
-    query.populate(populate);
-  }
+
+  query.populate('room');
+  query.populate('reserver', '-password'); // do NOT return password
+
   query.exec(function(err,item) {
     if (err) {
       console.log("Cannot find on:" + err);
@@ -326,16 +327,17 @@ app.get("/api/reservations/room/:roomid", function(req,res) {
 });
 
 app.post("/api/reservations", function(req,res) {
-  console.log("Adding new reservation");
 
   var reservation = new Reservation({
     room: req.body.room,
     description: req.body.description,
     startTime: req.body.startTime,
     endTime: req.body.endTime,
-    //reserver: req.body.reserver,
+    reserver: req.user._id,
     countOfCoffee: req.body.countOfCoffee
   });
+  console.log("Adding new reservation for room " + reservation.room +
+    " by user " + req.user.username);
 
   // TODO: check that new reservation doesn't overlap with existing reservations
 

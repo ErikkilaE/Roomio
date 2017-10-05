@@ -32,7 +32,7 @@ app.controller("RoomController", function($scope, $routeParams,$rootScope, Room,
   //  return $scope.rooms;
   //}
   $scope.reservation = new Reservation();
-  
+
   $scope.addReservation = function() {
     $scope.message = 'Submitting reservation';
     console.log("ReservationController submit reservation");
@@ -131,7 +131,7 @@ app.controller("ReservationController", function($scope,$rootScope, $routeParams
     $scope.reservation = new Reservation();
     $scope.reservation.id = id;
     console.log("searching for reservation with ID " + id)
-    $scope.reservation.$get({"populate": "room"}).then(
+    $scope.reservation.$get().then(
       function() { $scope.message = "Reservation room loaded";},
       function(error) { $scope.message = "Query error: " + error.status + " " + error.statusText;},
     );
