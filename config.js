@@ -1,13 +1,14 @@
 // Configuration for RoomioApp
 
 module.exports = {
-  "database":           "mongodb://localhost/roomio",
+  "database":           process.env.DB_URI || "mongodb://localhost/roomio",
+  "port":               process.env.PORT || 3000,
   // Session stuff
   "secret":             "bestOrNothingSecret",
   "saveUninitialized":  false,
-  "resave":             false, 
+  "resave":             false,
   "cookie":             {maxAge:1000*60*60*24},
-  "storeCollection":    "session",
-  "storeUrl":           "mongodb://localhost/sessionDb",
+  "storeUrl":           process.env.SESSIONDB_URI || "mongodb://localhost/sessionDb",
+  "storeCollection":    process.env.SESSION_COLLECTION || "session",
   "storeTtl":           60*60*24
 };

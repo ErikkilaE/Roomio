@@ -39,7 +39,7 @@ mongoose.connect(config.database, {useMongoClient: true});
 app.use(session({
 	secret:             config.secret,
 	saveUninitialized:  config.saveUninitialized,
-	resave:             config.resave, 
+	resave:             config.resave,
 	cookie:             config.cookie,
 	store:              new mongoStore({
                             collection: config.storeCollection,
@@ -81,8 +81,8 @@ passport.use(new LocalStrategy({
     },
     function(username, password, done) {
         User.findOne({ username: username, password: password }, function(err, user) {
-            if (err) { 
-                return done(err); 
+            if (err) {
+                return done(err);
             }
             /*if (!user) {
                 return done(null, false, { message: 'Incorrect username!' });
@@ -391,4 +391,5 @@ app.put("/api/reservations/:id", function(req,res) {
 
 module.exports = app;
 
-app.listen(3000);
+console.log("Roomio listening on port " + config.port)
+app.listen(config.port);
