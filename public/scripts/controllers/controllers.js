@@ -1,6 +1,6 @@
 var app = angular.module("Controllers", ["Factories"]);
 
-app.controller("RoomController", function($scope, $routeParams,$rootScope, Room, Features, RoomTypes) {
+app.controller("RoomController", function($scope, $routeParams,$rootScope, Room, Reservation, Features, RoomTypes) {
   $scope.message = ''; // status message shows whether submission succeeded
 
   $scope.roomId = $routeParams.roomId;
@@ -31,8 +31,24 @@ app.controller("RoomController", function($scope, $routeParams,$rootScope, Room,
   //  $scope.rooms = Room.query();
   //  return $scope.rooms;
   //}
+  $scope.reservation = new Reservation();
+  
+  $scope.addReservation = function() {
+    $scope.message = 'Submitting reservation';
+    console.log("ReservationController submit reservation");
+    var newReservation = new Reservation();
+    newReservation.room = $scope.room._id;
+    newReservation.startTime = $scope.reservation.startTime;
+    newReservation.endTime = $scope.reservation.endTime;
+    //newReservation.reserver = $scope.reservation.reserver.username;
+    newReservation.description = $scope.reservation.description;
+    newReservation.countOfCoffee = $scope.reservation.countOfCoffee;
 
-
+    newReservation.$save().then(
+      function() { $scope.message = "Reservation submitted successfully";},
+      function(error) { $scope.message = "Reservation submission error " + error.status + " " + error.statusText;},
+    );
+  }
 });
 
 app.controller("RoomListController", function($scope, $rootScope, Room, Features, RoomTypes) {
@@ -122,22 +138,6 @@ app.controller("ReservationController", function($scope,$rootScope, $routeParams
   };
 
   $scope.getReservationById($scope.reservationId);
-
-  $scope.addReservation = function() {
-    $scope.message = 'Submitting reservation';
-    console.log("ReservationController submit reservation");
-    var newReservation = new Reservation();
-    newReservation.startTime = $scope.reservation.startTime;
-    newReservation.endTime = $scope.reservation.endTime;
-    newReservation.reserver = $scope.reservation.reserver.username;
-    newReservation.description = $scope.reservation.description;
-    newReservation.countOfCoffee = $scope.reservation.countOfCoffee;
-
-    newReservation.$save().then(
-      function() { $scope.message = "Reservation submitted successfully";},
-      function(error) { $scope.message = "Reservation submission error " + error.status + " " + error.statusText;},
-    );
-  }
 });
 
 app.controller("ReservationListController", function($scope,$rootScope,Reservation) {
