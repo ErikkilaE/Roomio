@@ -7,9 +7,6 @@
   "bugs": {
     "url": "https://github.com/ErikkilaE/Roomio/issues"
   },
-  "scripts": {
-    "start": "node ./bin/www"
-  },
   "dependencies": {
     "body-parser": "^1.17.2",
     "checklist-model": "^0.11.0",
