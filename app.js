@@ -110,7 +110,8 @@ app.post('/login', passport.authenticate('local'), function (req, res) {
 app.post("/logout", function(req,res) {
 	console.log("logout");
 	if(req.session) {
-		req.session.destroy();
+    req.logout();
+		//req.session.destroy();
 		res.status(200).send({"Message":"Success"});
 	} else {
 		res.status(404).send({"Message":"Failure"});
