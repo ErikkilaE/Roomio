@@ -77,3 +77,33 @@ app.factory("RoomTypes", function() {
 
   return factory;
 });
+
+app.factory("UserService", function() {
+  var loginstate = {
+    isLogged: false,
+    username: null,
+    id: null,
+    isAdmin: false
+  };
+
+  loginstate.userLoggedOut = function userLoggedOut() {
+    loginstate.isLogged = false;
+    loginstate.username = null;
+    loginstate.name = null;
+    loginstate.email = null;
+    loginstate.id = null;
+    loginstate.isAdmin = false;
+  };
+
+  loginstate.userLoggedIn = function userLoggedIn(user) {
+    loginstate.isLogged = true;
+    loginstate.username = user.username;
+    loginstate.name = user.name ? user.name : user.username;
+    loginstate.email = user.email;
+    loginstate.id = user._id;
+    loginstate.isAdmin = user.admin;
+    console.log("User " + loginstate.username + " has logged in");
+  };
+
+  return loginstate;
+});

@@ -95,11 +95,17 @@ passport.use(new LocalStrategy({
   }
 ));
 
-app.post('/login',
-  passport.authenticate('local', { successRedirect: '/',
-                                   failureRedirect: '/#login' /*,
-                                   failureFlash: true*/ })
-);
+// app.post('/login-old',
+//   passport.authenticate('local', { successRedirect: '/',
+//                                    failureRedirect: '/#login' /*,
+//                                    failureFlash: true*/ })
+// );
+
+app.post('/login', passport.authenticate('local'), function (req, res) {
+    console.log("login request:" + req + ", response: " + res);
+    req.user.password = undefined; // remove password from user info
+    res.json(req.user);
+  });
 
 app.post("/logout", function(req,res) {
 	console.log("logout");

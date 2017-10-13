@@ -236,3 +236,51 @@ app.controller("RoomAdminController", function($scope, $routeParams, $rootScope,
   }
 
 });
+
+app.controller("LoginController", function($scope, $routeParams, $rootScope, $http, UserService) {
+  $scope.username = '';
+  $scope.password = '';
+  $scope.message = '';
+
+  $scope.login = function () {
+    console.log("try login with username/password:" + $scope.username + "/" + $scope.password);
+
+    $http.post('/login', {username: $scope.username, password: $scope.password})
+    .then(function loginSuccess(res) {
+
+      if (res.status == 200) {
+        // successfull login, user info in data
+        user = res.data;
+        console.log("login success, user: " + user);
+        $scope.message = "login ok, username: " + user.username + ", password: " + user.password + ", admin? " + user.admin;
+        UserService.userLoggedIn(user);
+      } else {
+        console.log("what happened? status: " + res.status + ", data: " + res.data);
+        $scope.message = "what happened? status: " + res.status + ", data: " + res.data;
+      }
+    }, function loginError(res) {
+      //var errdata = res.data;
+      console.log("login fail, status: " + res.status);
+      $scope.message = "login fail, status: " + res.status;
+    });
+
+    // var success = function(data, status, headers, config) {
+    //   if (data.status) {
+    //     // succefull login
+    //     User.isLogged = true;
+    //     User.username = data.username;
+    //   } else {
+    //     User.isLogged = false;
+    //     User.username = '';
+    //   }
+    // })
+    // .error(function(data, status, headers, config) {
+    //   User.isLogged = false;
+    //   User.username = '';
+    // });
+
+
+
+
+  }
+});
