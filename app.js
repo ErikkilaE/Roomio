@@ -141,6 +141,12 @@ app.use("/api", isLoggedIn, function(req,res,next) {
 	next();
 });
 
+app.get("/api/me", function(req, res) {
+  console.log("get info on current user");
+  req.user.password = undefined; // remove password from user info
+  res.json(req.user);
+});
+
 // -------------------- API to handle Rooms --------------------
 
 // generate simplified ID for a room from room information.
