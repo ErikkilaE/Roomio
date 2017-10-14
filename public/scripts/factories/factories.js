@@ -78,12 +78,38 @@ app.factory("RoomTypes", function() {
   return factory;
 });
 
-app.factory("UserService", function() {
+app.factory("UserService", function($http) {
   var loginstate = {
     isLogged: false,
     username: null,
     id: null,
     isAdmin: false
+  };
+
+  loginstate.getUserInfo = function () {
+    console.log("try get user info");
+
+    $http.get('/api/me')
+    .then(function (res) {
+      if (res.status == 200) {
+        // successfull login, user info in data
+        var user = res.data;
+        console.log("UserService: user is logged in: " + user);
+        loginstate.userLoggedIn(user);
+      } else {
+        console.log("what happened? status: " + res.status + ", data: " + res.data);
+      }
+    }, function (res) {
+      if (res.status = 401) {
+        // not logged in
+        console.log("UserService: user not logged in");
+        if (loginstate.isLogged) {
+          // clear login state
+          loginstate.userLoggedOut();
+        }
+      }
+      console.log("login fail, status: " + res.status);
+    });
   };
 
   loginstate.userLoggedOut = function userLoggedOut() {
@@ -105,5 +131,6 @@ app.factory("UserService", function() {
     console.log("User " + loginstate.username + " has logged in");
   };
 
+  loginstate.getUserInfo();
   return loginstate;
 });

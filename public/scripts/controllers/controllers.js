@@ -237,7 +237,7 @@ app.controller("RoomAdminController", function($scope, $routeParams, $rootScope,
 
 });
 
-app.controller("LoginController", function($scope, $routeParams, $rootScope, $http, UserService) {
+app.controller("LoginController", function($scope, $routeParams, $rootScope, $http, UserService, $location) {
   $scope.username = '';
   $scope.password = '';
   $scope.message = '';
@@ -254,6 +254,7 @@ app.controller("LoginController", function($scope, $routeParams, $rootScope, $ht
         console.log("login success, user: " + user);
         $scope.message = "login ok, username: " + user.username + ", password: " + user.password + ", admin? " + user.admin;
         UserService.userLoggedIn(user);
+        $location.path('/').replace();
       } else {
         console.log("what happened? status: " + res.status + ", data: " + res.data);
         $scope.message = "what happened? status: " + res.status + ", data: " + res.data;
@@ -263,24 +264,37 @@ app.controller("LoginController", function($scope, $routeParams, $rootScope, $ht
       console.log("login fail, status: " + res.status);
       $scope.message = "login fail, status: " + res.status;
     });
+  };
 
-    // var success = function(data, status, headers, config) {
-    //   if (data.status) {
-    //     // succefull login
-    //     User.isLogged = true;
-    //     User.username = data.username;
-    //   } else {
-    //     User.isLogged = false;
-    //     User.username = '';
-    //   }
-    // })
-    // .error(function(data, status, headers, config) {
-    //   User.isLogged = false;
-    //   User.username = '';
-    // });
+  $scope.logout = function () {
+    console.log("try logout");
+    $http.post('/logout', {})
+    .then(function logoutSuccess(res) {
+      if (res.status == 200) {
+        // successfull login, user info in data
+        console.log("logout success");
+        UserService.userLoggedOut();
+        $location.path('/').replace();
+      } else {
+        console.log("what happened? status: " + res.status + ", data: " + res.data);
+        $scope.message = "what happened? status: " + res.status + ", data: " + res.data;
+      }
+    }, function logoutError(res) {
+      //var errdata = res.data;
+      console.log("login fail, status: " + res.status);
+      $scope.message = "login fail, status: " + res.status;
+    });
+  };
 
+});
 
+app.controller("HomeController", function($scope, $routeParams, $rootScope, UserService) {
+  $scope.isLoggedIn = function () {
+    //console.log("isloggedin? " + $scope.user.isLogged)
+    return UserService.isLogged;
 
-
-  }
+    //return UserService.isLogged;
+  };
+  $scope.user = UserService;
+  $scope.message = 'home';
 });

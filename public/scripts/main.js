@@ -41,7 +41,7 @@ app.config(['$routeProvider',
         controller: 'ReservationListController'
       }).
       when('/', {
-        templateUrl: 'views/login.html'
+        templateUrl: 'views/home.html'
       }).
       otherwise({
         redirectTo: '/'
