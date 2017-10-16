@@ -3,8 +3,9 @@
   Home Page!
 
   <div ng-if="isLoggedIn()">
-    Logged in as {{user.username}} ({{user}})
-  </div>
+    Welcome, {{user.username}}
+
+    </div>
   <div ng-if="!isLoggedIn()">
     <strong>Not logged in.</strong>
     <a href="#/login">Login</a> or <a href="#/register">Register</a>
