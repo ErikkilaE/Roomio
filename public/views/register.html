@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<div>
-    <form action="/register" method="post">
+<div ng-controller="LoginController">
+    <form ng-submit="register()">
         <div>
             <label>Username:</label>
-            <input type="text" name="username"/>
+            <input type="text" name="username"  ng-model="username"/>
         </div>
         <div>
             <label>Password:</label>
-            <input type="password" name="password"/>
+            <input type="password" name="password" ng-model="password"/>
         </div>
         <div>
             <input type="submit" value="Register"/>
         </div>
     </form>
+    <p><em>Status message: {{message}}</em></p>
 </div>

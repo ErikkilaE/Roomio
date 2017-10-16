@@ -254,6 +254,7 @@ app.controller("LoginController", function($scope, $routeParams, $rootScope, $ht
         console.log("login success, user: " + user);
         $scope.message = "login ok, username: " + user.username + ", password: " + user.password + ", admin? " + user.admin;
         UserService.userLoggedIn(user);
+        $scope.reset();
         $location.path('/').replace();
       } else {
         console.log("what happened? status: " + res.status + ", data: " + res.data);
@@ -265,6 +266,12 @@ app.controller("LoginController", function($scope, $routeParams, $rootScope, $ht
       $scope.message = "login fail, status: " + res.status;
     });
   };
+
+  $scope.reset = function () {
+    // reset login/register form
+    $scope.username = '';
+    $scope.password = '';
+  }
 
   $scope.logout = function () {
     console.log("try logout");
@@ -285,6 +292,32 @@ app.controller("LoginController", function($scope, $routeParams, $rootScope, $ht
       $scope.message = "login fail, status: " + res.status;
     });
   };
+
+  $scope.register = function () {
+    console.log("try register with username/password:" + $scope.username + "/" + $scope.password);
+
+    $http.post('/register', {username: $scope.username, password: $scope.password})
+    .then(function registerSuccess(res) {
+
+      if (res.status == 200) {
+        // successfull register, user info in data
+        user = res.data;
+        console.log("register success, user: " + user);
+        $scope.message = "login ok, username: " + user.username + ", password: " + user.password + ", admin? " + user.admin;
+        //UserService.userLoggedIn(user);
+        $scope.reset();
+        //$location.path('/').replace();
+      } else {
+        console.log("what happened? status: " + res.status + ", data: " + res.data);
+        $scope.message = "what happened? status: " + res.status + ", data: " + res.data;
+      }
+    }, function registerError(res) {
+      //var errdata = res.data;
+      console.log("login fail, status: " + res.status);
+      $scope.message = "login fail, status: " + res.status;
+    });
+  };
+
 
 });
 
