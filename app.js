@@ -95,16 +95,23 @@ passport.use(new LocalStrategy({
   }
 ));
 
-app.post('/login',
-  passport.authenticate('local', { successRedirect: '/',
-                                   failureRedirect: '/#login' /*,
-                                   failureFlash: true*/ })
-);
+// app.post('/login-old',
+//   passport.authenticate('local', { successRedirect: '/',
+//                                    failureRedirect: '/#login' /*,
+//                                    failureFlash: true*/ })
+// );
+
+app.post('/login', passport.authenticate('local'), function (req, res) {
+    console.log("login request:" + req + ", response: " + res);
+    req.user.password = undefined; // remove password from user info
+    res.json(req.user);
+  });
 
 app.post("/logout", function(req,res) {
 	console.log("logout");
 	if(req.session) {
-		req.session.destroy();
+    req.logout();
+		//req.session.destroy();
 		res.status(200).send({"Message":"Success"});
 	} else {
 		res.status(404).send({"Message":"Failure"});
@@ -132,6 +139,12 @@ app.post("/register", function(req,res) {
 
 app.use("/api", isLoggedIn, function(req,res,next) {
 	next();
+});
+
+app.get("/api/me", function(req, res) {
+  console.log("get info on current user");
+  req.user.password = undefined; // remove password from user info
+  res.json(req.user);
 });
 
 // -------------------- API to handle Rooms --------------------

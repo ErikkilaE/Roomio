@@ -77,3 +77,60 @@ app.factory("RoomTypes", function() {
 
   return factory;
 });
+
+app.factory("UserService", function($http) {
+  var loginstate = {
+    isLogged: false,
+    username: null,
+    id: null,
+    isAdmin: false
+  };
+
+  loginstate.getUserInfo = function () {
+    console.log("try get user info");
+
+    $http.get('/api/me')
+    .then(function (res) {
+      if (res.status == 200) {
+        // successfull login, user info in data
+        var user = res.data;
+        console.log("UserService: user is logged in: " + user);
+        loginstate.userLoggedIn(user);
+      } else {
+        console.log("what happened? status: " + res.status + ", data: " + res.data);
+      }
+    }, function (res) {
+      if (res.status = 401) {
+        // not logged in
+        console.log("UserService: user not logged in");
+        if (loginstate.isLogged) {
+          // clear login state
+          loginstate.userLoggedOut();
+        }
+      }
+      console.log("login fail, status: " + res.status);
+    });
+  };
+
+  loginstate.userLoggedOut = function userLoggedOut() {
+    loginstate.isLogged = false;
+    loginstate.username = null;
+    loginstate.name = null;
+    loginstate.email = null;
+    loginstate.id = null;
+    loginstate.isAdmin = false;
+  };
+
+  loginstate.userLoggedIn = function userLoggedIn(user) {
+    loginstate.isLogged = true;
+    loginstate.username = user.username;
+    loginstate.name = user.name ? user.name : user.username;
+    loginstate.email = user.email;
+    loginstate.id = user._id;
+    loginstate.isAdmin = user.admin;
+    console.log("User " + loginstate.username + " has logged in");
+  };
+
+  loginstate.getUserInfo();
+  return loginstate;
+});

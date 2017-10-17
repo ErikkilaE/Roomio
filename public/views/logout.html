@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<div>
-    <form action="/logout" method="post">
-        <div>
-            <input type="submit" value="Log Out"/>
-        </div>
-    </form>
+<div ng-controller="LoginController">
+  <form ng-submit="logout()">
+    <div>
+      <input type="submit" value="Log Out"/>
+    </div>
+  </form>
+  <p><em>Status message: {{message}}</em></p>
+
 </div>

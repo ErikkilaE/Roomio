@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<div ng-controller="HomeController">
+  Home Page!
+
+  <div ng-if="isLoggedIn()">
+    Welcome, {{user.username}}
+
+    </div>
+  <div ng-if="!isLoggedIn()">
+    <strong>Not logged in.</strong>
+    <a href="#/login">Login</a> or <a href="#/register">Register</a>
+  </div>
+
+  <p><em>Status message: {{message}}</em></p>
+
+</div>
