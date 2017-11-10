@@ -7,12 +7,12 @@ app.controller("RoomController", function($scope, $routeParams,$rootScope, Room,
 
   $scope.getRoomById = function (id) {
     $scope.room = new Room();
-    console.log("searching for item with ID " + id)
+    console.log("searching for item with ID " + id);
     $scope.room.$get({id: id}).then(
       function() {
         $scope.message = "Item room";
         $rootScope.pageTitle = 'Room.io - Room: ' + $scope.room.name; },
-      function(error) { $scope.message = "Query error: " + error.status + " " + error.statusText;},
+      function(error) { $scope.message = "Query error: " + error.status + " " + error.statusText;}
     );
   };
   // get associative array of features: id -> name
@@ -46,9 +46,9 @@ app.controller("RoomController", function($scope, $routeParams,$rootScope, Room,
 
     newReservation.$save().then(
       function() { $scope.message = "Reservation submitted successfully";},
-      function(error) { $scope.message = "Reservation submission error " + error.status + " " + error.statusText;},
+      function(error) { $scope.message = "Reservation submission error " + error.status + " " + error.statusText;}
     );
-  }
+  };
 });
 
 app.controller("RoomListController", function($scope, $rootScope, Room, Features, RoomTypes) {
@@ -72,7 +72,7 @@ app.controller("RoomListController", function($scope, $rootScope, Room, Features
     console.log("Getting list of rooms");
     $scope.rooms = Room.query();
     return $scope.rooms;
-  }
+  };
 
   $scope.filterByFeatures = function (room, index, allrooms) {
     var requiredFeatures = $scope.advFilter.features;
@@ -83,7 +83,7 @@ app.controller("RoomListController", function($scope, $rootScope, Room, Features
       });
     }
     return result;
-  }
+  };
 
   $scope.filterByParticipants = function (room, index, allrooms) {
     var minimum = $scope.advFilter.participants;
@@ -110,10 +110,10 @@ app.controller("RoomListController", function($scope, $rootScope, Room, Features
   $scope.getRoomById = function (id) {
     $scope.item = new Room();
     $scope.item.id = id;
-    console.log("searching for item with ID " + id)
+    console.log("searching for item with ID " + id);
     $scope.item.$get().then(
       function() { $scope.message = "Item found";},
-      function(error) { $scope.message = "Query error: " + error.status + " " + error.statusText;},
+      function(error) { $scope.message = "Query error: " + error.status + " " + error.statusText;}
     );
   };
 
@@ -130,10 +130,10 @@ app.controller("ReservationController", function($scope,$rootScope, $routeParams
   $scope.getReservationById = function (id) {
     $scope.reservation = new Reservation();
     $scope.reservation.id = id;
-    console.log("searching for reservation with ID " + id)
+    console.log("searching for reservation with ID " + id);
     $scope.reservation.$get().then(
       function() { $scope.message = "Reservation room loaded";},
-      function(error) { $scope.message = "Query error: " + error.status + " " + error.statusText;},
+      function(error) { $scope.message = "Query error: " + error.status + " " + error.statusText;}
     );
   };
 
@@ -151,10 +151,10 @@ app.controller("ReservationListController", function($scope,$rootScope,Reservati
     console.log("Getting list of reservations");
     $scope.reservations = Reservation.query().then(
       function() { $scope.message = "Loaded successfully";},
-      function(error) { $scope.message = "Query error error " + error.status + " " + error.statusText;},
-    );;
+      function(error) { $scope.message = "Query error error " + error.status + " " + error.statusText;}
+    );
     return $scope.items;
-  }
+  };
   //$scope.getItems();
 
 });
@@ -185,9 +185,9 @@ app.controller("AddRoomController", function($scope, $routeParams, $rootScope, R
 
     newroom.$save().then(
       function() { $scope.message = "Submitted successfully";},
-      function(error) { $scope.message = "Submission error " + error.status + " " + error.statusText;},
+      function(error) { $scope.message = "Submission error " + error.status + " " + error.statusText;}
     );
-  }
+  };
 });
 
 app.controller("RoomAdminController", function($scope, $routeParams, $rootScope, Room, Features, RoomTypes) {
@@ -207,10 +207,10 @@ app.controller("RoomAdminController", function($scope, $routeParams, $rootScope,
   $scope.getRoomById = function (id) {
     $scope.room = new Room();
     $scope.room.id = id;
-    console.log("searching for item with ID " + id)
+    console.log("searching for item with ID " + id);
     $scope.room.$get().then(
       function() { $scope.message = "Got room";},
-      function(error) { $scope.message = "Query error: " + error.status + " " + error.statusText;},
+      function(error) { $scope.message = "Query error: " + error.status + " " + error.statusText;}
     );
   };
 
@@ -222,18 +222,18 @@ app.controller("RoomAdminController", function($scope, $routeParams, $rootScope,
 
     $scope.room.$save().then(
       function() { $scope.message = "Updated successfully";},
-      function(error) { $scope.message = "Submission error " + error.status + " " + error.statusText;},
+      function(error) { $scope.message = "Submission error " + error.status + " " + error.statusText;}
     );
-  }
+  };
   $scope.update = function() {
     $scope.message = 'Submitting item';
     console.log("RoomAdminController submit");
 
     $scope.room.$update({id: $scope.roomId}).then(
       function() { $scope.message = "Updated successfully";},
-      function(error) { $scope.message = "Submission error " + error.status + " " + error.statusText;},
+      function(error) { $scope.message = "Submission error " + error.status + " " + error.statusText;}
     );
-  }
+  };
 
 });
 
@@ -271,7 +271,7 @@ app.controller("LoginController", function($scope, $routeParams, $rootScope, $ht
     // reset login/register form
     $scope.username = '';
     $scope.password = '';
-  }
+  };
 
   $scope.logout = function () {
     console.log("try logout");

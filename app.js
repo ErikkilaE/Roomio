@@ -9,8 +9,8 @@ var jwt = require("jsonwebtoken");
 //var index = require('./routes/index');
 //var users = require('./routes/users');
 var simplifyString = require("simplify-string");
-var passport = require('passport')
-  , LocalStrategy = require('passport-local').Strategy;
+var passport = require('passport'),
+    LocalStrategy = require('passport-local').Strategy;
 var session	= require("express-session");
 var mongoStore = require("connect-mongo")(session);
 
@@ -53,7 +53,7 @@ function isLoggedIn(req, res, next) {
 		return next();
 	}
     res.sendStatus(401);
-};
+}
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -72,7 +72,7 @@ passport.deserializeUser(function(_id, done) {
       return console.log(err.message);
     }
     return done(null, user);
-  })
+  });
 });
 
 passport.use(new LocalStrategy({
@@ -232,7 +232,7 @@ app.put("/api/rooms/:id", function(req,res) {
   }
 
   console.log("Update info of room having id: " + id + " by user: " + req.user.username);
-  console.log(" updated info: " + req.body)
+  console.log(" updated info: " + req.body);
   var updatedRoom = req.body;
 
   console.log("get room with id " + id + " for update");
@@ -406,5 +406,5 @@ app.put("/api/reservations/:id", function(req,res) {
 
 module.exports = app;
 
-console.log("Roomio listening on port " + config.port)
+console.log("Roomio listening on port " + config.port);
 app.listen(config.port);

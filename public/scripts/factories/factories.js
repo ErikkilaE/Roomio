@@ -100,7 +100,7 @@ app.factory("UserService", function($http) {
         console.log("what happened? status: " + res.status + ", data: " + res.data);
       }
     }, function (res) {
-      if (res.status = 401) {
+      if (res.status == 401) {
         // not logged in
         console.log("UserService: user not logged in");
         if (loginstate.isLogged) {
