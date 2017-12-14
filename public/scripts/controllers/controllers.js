@@ -306,7 +306,7 @@ app.controller("LoginController", function($scope, $routeParams, $rootScope, $ht
         $scope.message = "login ok, username: " + user.username + ", password: " + user.password + ", admin? " + user.admin;
         //UserService.userLoggedIn(user);
         $scope.reset();
-        //$location.path('/').replace();
+        $location.path('/login').replace();
       } else {
         console.log("what happened? status: " + res.status + ", data: " + res.data);
         $scope.message = "what happened? status: " + res.status + ", data: " + res.data;
