@@ -33,3 +33,30 @@ a {
   padding: 0.1em 0.25em;
   margin: 0.1em;
 }
+
+header {
+  background-color: #44f;
+  color: white;
+  vertical-align: middle;
+}
+
+header a:link, header a:visited {
+  color: white;
+}
+.notloggedin header {
+  background-color: #66f;
+}
+
+header .headertitle {
+  font-size: xx-large;
+  font-weight: bold;
+}
+
+footer {
+  border-top: 2px solid #ccc;
+  /*border-style: solid none none none;
+  border-top: 2px;
+  border-color: black;*/
+  text-align: center;
+  font-size: small;
+}

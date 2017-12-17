@@ -1,0 +1,8 @@
+<span class="headertitle">Room.io!</span>
+<span ng-if="currentUser.isLogged">
+  Welcome, {{currentUser.username}}
+  <span ng-controller="LoginController"><button ng-click="logout()">Logout</button></span>
+</span>
+<span ng-if="!currentUser.isLogged">
+  Not logged in, <a href="#/login">Login</a> or <a href="#/register">Register</a>
+</span>

@@ -8,23 +8,26 @@
     <script src="scripts/checklist-model.js"></script>
     <script src="scripts/main.js"></script>
 		<script src="scripts/controllers/controllers.js"></script>
+    <script src="scripts/directives/directives.js"></script>
 		<script src="scripts/factories/factories.js"></script>
     <link rel="stylesheet" href="stylesheets/style.css">
     <title ng-bind="pageTitle || 'Room.io'">room.io</title>
   </head>
-  <body>
-    <h1>Room.io!</h1>
-    <h4>Manage your room reservations:</h4>
-    <a href="#/rooms">List of rooms</a> /
-    <!--<a href="#/room">Show a room and its reservations</a> /-->
-    <a href="#/reservations">Show list of all reservations</a> /
-    <a href="#/addroom">Add a new room</a> /
-    <!-- <a href="#/editroom">Edit properties of a room</a> -->
-    <a href="#/login">Login</a> / <a href="#/logout">Logout</a> / <a href="#/register">Register</a>
+  <body ng-class="{'loggedin': currentUser.isLogged, 'notloggedin': !currentUser.isLogged}">
+    <header class="appheader">
+    </header>
+    <div ng-if="currentUser.isLogged">
+
+      <a href="#/rooms">List of rooms</a> /
+      <a href="#/reservations">Show list of all reservations</a> /
+      <a href="#/addroom">Add a new room</a>
+    </div>
     <hr>
     <div ng-view>
 
     </div>
-
+    <footer>
+      <a href="https://github.com/ErikkilaE/Roomio">Room.io!</a> by <a href="https://github.com/hynde">Jussi Hynninen</a> and <a href="https://github.com/ErikkilaE">Eero Erikkilä</a>
+    </footer>
   </body>
 </html>

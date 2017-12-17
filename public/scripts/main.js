@@ -48,3 +48,7 @@ app.config(['$routeProvider',
       });
     }
 ]);
+
+app.run(function($rootScope, UserService) {
+  $rootScope.currentUser = UserService;
+  });
