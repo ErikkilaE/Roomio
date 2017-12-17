@@ -2,6 +2,8 @@
 <html ng-app="RoomioApp">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-resource.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-route.min.js"></script>
@@ -10,21 +12,33 @@
 		<script src="scripts/controllers/controllers.js"></script>
     <script src="scripts/directives/directives.js"></script>
 		<script src="scripts/factories/factories.js"></script>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"> -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
+    <link href="scripts/dist/ui-bootstrap-csp.css" rel="stylesheet">
+    <script src="scripts/dist/ui-bootstrap-tpls.js"></script>
     <link rel="stylesheet" href="stylesheets/style.css">
     <title ng-bind="pageTitle || 'Room.io'">room.io</title>
   </head>
   <body ng-class="{'loggedin': currentUser.isLogged, 'notloggedin': !currentUser.isLogged}">
-    <header class="appheader">
-    </header>
-    <div ng-if="currentUser.isLogged">
-
-      <a href="#/rooms">List of rooms</a> /
-      <a href="#/reservations">Show list of all reservations</a> /
-      <a href="#/addroom">Add a new room</a>
-    </div>
-    <hr>
-    <div ng-view>
-
+    <nav class="navbar navbar-inverse navbar-default navbar-static-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#/">Room.io!</a>
+        </div>
+        <ul class="nav navbar-nav" ng-if="currentUser.isLogged">
+          <li><a href="#/rooms">Rooms</a></li>
+          <li><a href="#/reservations">Reservations</a></li>
+          <li><a href="#/addroom">Add room</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right" ng-controller="LoginController">
+          <li ng-if="!currentUser.isLogged"><a href="#/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li ng-if="!currentUser.isLogged"><a href="#/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          <li ng-if="currentUser.isLogged"><a ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div ng-view class="container">
     </div>
     <footer>
       <a href="https://github.com/ErikkilaE/Roomio">Room.io!</a> by <a href="https://github.com/hynde">Jussi Hynninen</a> and <a href="https://github.com/ErikkilaE">Eero Erikkilä</a>

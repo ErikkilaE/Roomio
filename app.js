@@ -27,6 +27,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/scripts/dist', express.static(path.join(__dirname, 'node_modules/angular-ui-bootstrap/dist')));
 
 var mongoose = require("mongoose");
 var Room = require("./backend/models/roomSchema");
