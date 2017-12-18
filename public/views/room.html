@@ -1,22 +1,15 @@
 <!DOCTYPE html>
 <div ng-controller="RoomController">
-  <h2>Room {{room.name}} ({{roomId}}) details</h2>
-
-  <ul>
-    <li><b>Name:</b> {{room.name}}</li>
-    <li><b>Capacity:</b> {{room.capacity}}</li>
-    <li><b>Floor:</b> {{room.floor}}</li>
-    <li><b>Building:</b> {{room.building}}</li>
-    <li><b>Site:</b> {{room.site}}</li>
-    <li><b>Type:</b> {{roomTypeOptions[room.type]}}</li>
-    <li><b>Features:</b>
+  <div class="jumbotron">
+    <h1>{{room.name}} <small>{{roomTypeOptions[room.type]}} - seats {{room.capacity}} persons</small></h1>
+    <h3>Location: {{room.building}}, floor {{room.floor}} ({{room.site}})</h3>
+    <h4>Features:
       <span class="label label-feature label-primary" ng-repeat='feature in room.features'>
         {{featureOptions[feature]}}
       </span>
-    </li>
-
-    <li><b>_id:</b> {{room._id}}</li>
-  </ul>
+    </h4>
+    <p>{{room.description}}</p>
+  </div>
 
   <p><a href="#/editroom/{{room.roomId}}">Edit room</a></p>
 

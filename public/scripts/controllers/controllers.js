@@ -11,7 +11,7 @@ app.controller("RoomController", function($scope, $routeParams,$rootScope, Room,
     $scope.room.$get({id: id}).then(
       function() {
         $scope.message = "Item room";
-        $rootScope.pageTitle = 'Room.io - Room: ' + $scope.room.name; },
+        $rootScope.pageTitle = 'Room.io! ' + $scope.room.name; },
       function(error) { $scope.message = "Query error: " + error.status + " " + error.statusText;}
     );
   };
@@ -24,7 +24,7 @@ app.controller("RoomController", function($scope, $routeParams,$rootScope, Room,
   $scope.getRoomById($scope.roomId);
 
   // change window title (see <title ng-bind...> in index.html)
-  $rootScope.pageTitle = 'Room.io - RoomController';
+  $rootScope.pageTitle = 'Room.io!';
 
   //$scope.getAllRooms = function() {
   //  console.log("Getting list of rooms");
@@ -55,7 +55,7 @@ app.controller("RoomListController", function($scope, $rootScope, Room, Features
   $scope.message = ''; // status message shows whether submission succeeded
 
   // change window title (see <title ng-bind...> in index.html)
-  $rootScope.pageTitle = 'Room.io - RoomListController';
+  $rootScope.pageTitle = 'Room.io! Available rooms';
 
   // get associative array of features: id -> name
   $scope.featureOptions = Features.getFeatures();
@@ -125,7 +125,7 @@ app.controller("ReservationController", function($scope,$rootScope, $routeParams
   $scope.reservationId = $routeParams.reservationId;
 
   // change window title (see <title ng-bind...> in index.html)
-  $rootScope.pageTitle = 'Room.io - ReservationController';
+  $rootScope.pageTitle = 'Room.io! - ReservationController';
 
   $scope.getReservationById = function (id) {
     $scope.reservation = new Reservation();
@@ -145,7 +145,7 @@ app.controller("ReservationListController", function($scope,$rootScope,Reservati
 
   $scope.reservations = Reservation.query({"populate": "room"});
   // change window title (see <title ng-bind...> in index.html)
-  $rootScope.pageTitle = 'Room.io - ReservationListController';
+  $rootScope.pageTitle = 'Room.io! - ReservationListController';
 
   $scope.getItems = function() {
     console.log("Getting list of reservations");
@@ -163,7 +163,9 @@ app.controller("AddRoomController", function($scope, $routeParams, $rootScope, R
 
   $scope.features = [];
   // change window title (see <title ng-bind...> in index.html)
-  $rootScope.pageTitle = 'Room.io - RoomAdminController';
+  $rootScope.pageTitle = 'Room.io! Add room';
+
+  $scope.room = new Room();
 
   // get associative array of feature options for use with 'ng-repeat + checklist-model'
   $scope.featureOptions = Features.getFeatures();
@@ -174,16 +176,8 @@ app.controller("AddRoomController", function($scope, $routeParams, $rootScope, R
   $scope.addRoom = function() {
     $scope.message = 'Submitting item';
     console.log("RoomAdminController submit");
-    var newroom = new Room();
-    newroom.name = $scope.name;
-    newroom.capacity = $scope.capacity;
-    newroom.floor = $scope.floor;
-    newroom.building = $scope.building;
-    newroom.site = $scope.site;
-    newroom.type = $scope.type;
-    newroom.features = $scope.features;
 
-    newroom.$save().then(
+    $scope.room.$save().then(
       function() { $scope.message = "Submitted successfully";},
       function(error) { $scope.message = "Submission error " + error.status + " " + error.statusText;}
     );
@@ -202,14 +196,17 @@ app.controller("RoomAdminController", function($scope, $routeParams, $rootScope,
   $scope.roomTypeOptions = RoomTypes.getRoomTypeArray();
 
   // change window title (see <title ng-bind...> in index.html)
-  $rootScope.pageTitle = 'Room.io - RoomAdminController';
+  $rootScope.pageTitle = 'Room.io! Edit room details';
 
   $scope.getRoomById = function (id) {
     $scope.room = new Room();
     $scope.room.id = id;
     console.log("searching for item with ID " + id);
     $scope.room.$get().then(
-      function() { $scope.message = "Got room";},
+      function() {
+        $scope.message = "Got room";
+        $rootScope.pageTitle = 'Room.io! ' + $scope.room.name + " - Edit room details";
+      },
       function(error) { $scope.message = "Query error: " + error.status + " " + error.statusText;}
     );
   };

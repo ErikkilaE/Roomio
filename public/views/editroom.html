@@ -1,7 +1,17 @@
 <!DOCTYPE html>
 <div ng-controller="RoomAdminController">
-  <p>Edit room {{roomId}} details</p>
+  <div class="jumbotron">
+    <h1>{{room.name}} <small>{{roomTypeOptions[room.type]}} - seats {{room.capacity}} persons</small></h1>
+    <h3>Location: {{room.building}}, floor {{room.floor}} ({{room.site}})</h3>
+    <h4>Features:
+      <span class="label label-feature label-primary" ng-repeat='feature in room.features'>
+        {{featureOptions[feature]}}
+      </span>
+    </h4>
+    <p>{{room.description}}</p>
+  </div>
 
+  <h2>Update room details</h2>
   <form ng-submit="update()">
     <label for="name">Room name</label>:
     <input type="text" name="name" id="name" value="" ng-model="room.name"><br>

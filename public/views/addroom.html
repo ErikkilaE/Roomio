@@ -1,25 +1,36 @@
 <!DOCTYPE html>
 <div ng-controller="AddRoomController">
-  <p>Add new room</p>
+  <div class="jumbotron">
+    <h1>{{room.name}} <small>{{roomTypeOptions[room.type]}} - seats {{room.capacity}} persons</small></h1>
+    <h3>Location: {{room.building}}, floor {{room.floor}} ({{room.site}})</h3>
+    <h4>Features:
+      <span class="label label-feature label-primary" ng-repeat='feature in room.features'>
+        {{featureOptions[feature]}}
+      </span>
+    </h4>
+    <p>{{room.description}}</p>
+  </div>
+
+  <h1>Add new room</h1>
 
   <form ng-submit="addRoom()">
     <label for="name">Room name</label>:
-    <input type="text" name="name" id="name" value="" ng-model="name"><br>
+    <input type="text" name="name" id="name" value="" ng-model="room.name"><br>
     <label for="capacity">Capacity</label>:
-    <input type="number" min=1 name="capacity" id="capacity" value="" ng-model="capacity"><br>
+    <input type="number" min=1 name="capacity" id="capacity" value="" ng-model="room.capacity"><br>
     <label for="building">Building</label>:
-    <input type="text" name="building" id="building" value="" id="building" ng-model="building">
+    <input type="text" name="building" id="building" value="" id="building" ng-model="room.building">
     <label for="site">Site</label>:
-    <input type="text" name="site" id="site" value="" id="site" ng-model="site"><br>
+    <input type="text" name="site" id="site" value="" id="site" ng-model="room.site"><br>
     <label for="floor">Floor</label>:
-    <input type="number" min=1 name="floor" id="floor" value="" ng-model="floor"><br>
+    <input type="number" min=1 name="floor" id="floor" value="" ng-model="room.floor"><br>
     <label for="type">Room type</label>:
-    <select name="type" id="type" ng-model="type"
+    <select name="type" id="type" ng-model="room.type"
             ng-options="t.id as t.name for t in roomTypeOptions">
     </select><br>
     <label>Features</label>:
     <div class="featurecb" ng-repeat="(id,name) in featureOptions">
-      <input type="checkbox" id="feature-cb-{{id}}" name="features" checklist-value="id" checklist-model="features">
+      <input type="checkbox" id="feature-cb-{{id}}" name="features" checklist-value="id" checklist-model="room.features">
       <label for="feature-cb-{{id}}">{{name}}</label>
     </div>
     <br>

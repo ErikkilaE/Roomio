@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <div ng-controller="RoomListController">
-  <h2>Room list</h2>
+  <div class="jumbotron">
+    <h1>Available rooms</h1>
+    <p>Use filters below to find a suitable room with the features you need for
+        your meeting.</p>
+  </div>
 
   <label for="name">Room name</label>:
   <input type="text" name="name" id="name" value="" ng-model="basicFilter.name"><br>
@@ -25,7 +29,6 @@
   <table class="table">
     <thead>
       <tr>
-        <th>ID</th>
         <th>Name</th>
         <th>Capacity</th>
         <th>Building</th>
@@ -37,7 +40,6 @@
     </thead>
     <tbody>
       <tr ng-repeat='r in rooms | filter:basicFilter | filter:filterByFeatures | filter:filterByParticipants | orderBy:floorDistance'>
-        <td>{{r.roomId}}</td>
         <td><a href="#/room/{{r.roomId}}">{{r.name}}</a></td>
         <td>{{r.capacity}}</td>
         <td>{{r.building}}</td>
