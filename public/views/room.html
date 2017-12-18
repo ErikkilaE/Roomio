@@ -10,7 +10,7 @@
     <li><b>Site:</b> {{room.site}}</li>
     <li><b>Type:</b> {{roomTypeOptions[room.type]}}</li>
     <li><b>Features:</b>
-      <span class="featurebutton" ng-repeat='feature in room.features'>
+      <span class="label label-feature label-primary" ng-repeat='feature in room.features'>
         {{featureOptions[feature]}}
       </span>
     </li>
@@ -24,7 +24,7 @@
 
   <form ng-submit="addReservation()">
     <label for="startTime">Start time</label>:
-    <input type="text" name="startTime" id="startTime" value="" 
+    <input type="text" name="startTime" id="startTime" value=""
         ng-model="reservation.startTime"><br>
     <label for="endTime">End time</label>:
     <input type="text" name="endTime" id="endTime" value=""

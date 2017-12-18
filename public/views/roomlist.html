@@ -22,7 +22,7 @@
   </div>
 
   <hr>
-  <table>
+  <table class="table">
     <thead>
       <tr>
         <th>ID</th>
@@ -45,7 +45,7 @@
         <td>{{r.site}}</td>
         <td>{{roomTypeOptions[r.type]}}</td>
         <td>
-          <span class="featurebutton" ng-repeat='feature in r.features'>
+          <span class="label-feature label label-primary" ng-repeat='feature in r.features'>
             {{featureOptions[feature]}}
           </span>
         </td>
