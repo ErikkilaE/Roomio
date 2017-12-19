@@ -11,8 +11,10 @@
     <p>{{room.description}}</p>
   </div>
 
-  <p><a href="#/editroom/{{room.roomId}}">Edit room</a></p>
+  <p><a href="#/editroom/{{room.roomId}}">Edit room details</a></p>
 
+  <h2>Upcoming meetings</h2>
+  <reservation-list reservations="reservations" omitroom="true"></reservation-list>
   <h3>Add reservation</h3>
 
   <form ng-submit="addReservation()">

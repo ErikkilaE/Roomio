@@ -5,16 +5,26 @@ app.controller("RoomController", function($scope, $routeParams,$rootScope, Room,
 
   $scope.roomId = $routeParams.roomId;
 
+  $scope.reservations = {};
+
   $scope.getRoomById = function (id) {
     $scope.room = new Room();
     console.log("searching for item with ID " + id);
     $scope.room.$get({id: id}).then(
       function() {
         $scope.message = "Item room";
-        $rootScope.pageTitle = 'Room.io! ' + $scope.room.name; },
+        $rootScope.pageTitle = 'Room.io! ' + $scope.room.name;
+        $scope.getReservations($scope.room._id);
+       },
       function(error) { $scope.message = "Query error: " + error.status + " " + error.statusText;}
     );
   };
+
+  $scope.getReservations = function (roomid) {
+    console.log("Look for reservations for room " + roomid);
+    $scope.reservations = Reservation.query({"room": roomid, "populate": "room"});
+  };
+
   // get associative array of features: id -> name
   $scope.featureOptions = Features.getFeatures();
 
@@ -146,16 +156,6 @@ app.controller("ReservationListController", function($scope,$rootScope,Reservati
   $scope.reservations = Reservation.query({"populate": "room"});
   // change window title (see <title ng-bind...> in index.html)
   $rootScope.pageTitle = 'Room.io! - ReservationListController';
-
-  $scope.getItems = function() {
-    console.log("Getting list of reservations");
-    $scope.reservations = Reservation.query().then(
-      function() { $scope.message = "Loaded successfully";},
-      function(error) { $scope.message = "Query error error " + error.status + " " + error.statusText;}
-    );
-    return $scope.items;
-  };
-  //$scope.getItems();
 
 });
 app.controller("AddRoomController", function($scope, $routeParams, $rootScope, Room, Features, RoomTypes) {
@@ -318,13 +318,15 @@ app.controller("LoginController", function($scope, $routeParams, $rootScope, $ht
 
 });
 
-app.controller("HomeController", function($scope, $routeParams, $rootScope, UserService) {
+app.controller("HomeController", function($scope, $routeParams, $rootScope, UserService, Reservation) {
   $scope.isLoggedIn = function () {
-    //console.log("isloggedin? " + $scope.user.isLogged)
     return UserService.isLogged;
-
-    //return UserService.isLogged;
   };
   $scope.user = UserService;
   $scope.message = 'home';
+  $scope.reservations = {};
+  if ($scope.isLoggedIn()) {
+    $scope.reservations = Reservation.query({"reserver": $scope.user.id, "populate": "room"});
+  }
+
 });

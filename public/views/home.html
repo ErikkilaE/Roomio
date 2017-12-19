@@ -4,21 +4,18 @@
     <div class="jumbotron">
       <h1>Welcome, {{user.username}}</h1>
       <p>Look for suitable rooms and make reservations.</p>
-      <p>Your upcoming meetings will be shown below soon...(not implemented yet)</p>
     </div>
+    <h2>Your upcoming meetings</h2>
+    <reservation-list reservations="reservations" omituser="true"></reservation-list>
   </div>
   <div ng-if="!isLoggedIn()">
     <div class="jumbotron">
       <h1>Room.io! <small>Your meetings central</small></h1>
       <p>Find the room for your meeting that fits your needs.</p>
-
       <p><a class="btn btn-primary btn-lg" href="#/login" role="button">Login</a>
         or
         <a class="btn btn-primary btn-lg" href="#/register" role="button">Register</a>
       </p>
     </div>
   </div>
-
-  <p><em>Status message: {{message}}</em></p>
-
 </div>
