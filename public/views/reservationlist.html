@@ -2,7 +2,7 @@
 <div ng-controller="ReservationListController">
   <h2>Reservation list</h2>
 
-  <table>
+  <table class="table table-condensed table-hover">
     <thead>
       <tr>
         <th>?</th>
@@ -10,16 +10,18 @@
         <th>Date</th>
         <th>Time</th>
         <th># Coffee</th>
+        <th>User</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat='r in reservations'>
-        <td><a href="#/reservation/{{r._id}}">(i)</a></td>
+        <td><a href="#/reservation/{{r._id}}"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></a></td>
         <td><a href="#/room/{{r.room.roomId}}">{{r.room.name}}</a></td>
         <td>{{r.startTime | date:'yyyy-MM-dd'}}</td>
         <td>{{r.startTime | date:'HH:mm'}}-{{r.endTime | date:'HH:mm'}}</td>
         <td>{{r.countOfCoffee}}</td>
+        <td>{{r.reserver.username}}</td>
         <td>{{r.description}}</td>
       </tr>
     </tbody>
