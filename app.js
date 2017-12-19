@@ -272,6 +272,7 @@ app.get("/api/reservations", function(req,res) {
   var roomid = req.query.room;
   var after = req.query.since;
   var before = req.query.upto;
+  var reserver = req.query.reserver;
   var populate = req.query.populate;
 
   if (after) {
@@ -291,8 +292,12 @@ app.get("/api/reservations", function(req,res) {
   if (before) {
     query.where('startTime').lt(before);
   }
+  if (reserver) {
+    query.where('reserver').equals(reserver);
+  }
   if (populate) {
     query.populate('room'); // for now only allow populate room
+    query.populate('reserver', '-password'); // do NOT return password
     //FIXME if allow reserver population, remember to not return password!
   }
   query.sort('startTime');
