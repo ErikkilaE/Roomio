@@ -55,7 +55,10 @@ app.controller("RoomController", function($scope, $routeParams,$rootScope, Room,
     newReservation.countOfCoffee = $scope.reservation.countOfCoffee;
 
     newReservation.$save().then(
-      function() { $scope.message = "Reservation submitted successfully";},
+      function() {
+        $scope.message = "Reservation submitted successfully";
+        $scope.getReservations($scope.room._id);  // refresh reservation list
+      },
       function(error) { $scope.message = "Reservation submission error " + error.status + " " + error.statusText;}
     );
   };
