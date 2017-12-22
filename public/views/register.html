@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <div ng-controller="LoginController">
-    <form ng-submit="register()">
-        <div>
-            <label>Username:</label>
-            <input type="text" name="username"  ng-model="username"/>
-        </div>
-        <div>
-            <label>Password:</label>
-            <input type="password" name="password" ng-model="password"/>
-        </div>
-        <div>
-            <input type="submit" value="Register"/>
-        </div>
-    </form>
-    <p><em>Status message: {{message}}</em></p>
+
+  <form class="form-signin" ng-submit="register()">
+    <h2 class="form-signin-heading">Register as new user</h2>
+    <label for="username" class="sr-only">Username:</label>
+    <input type="text" id="username" name="username" ng-model="username" class="form-control" placeholder="User name" required autofocus/>
+    <label for"password" class="sr-only">Password:</label>
+    <input type="password" id="password" name="password" ng-model="password" class="form-control" placeholder="Password" required />
+    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Register"/>
+  </form>
+
+  <p><em>Status message: {{message}}</em></p>
 </div>
